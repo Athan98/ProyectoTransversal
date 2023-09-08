@@ -26,13 +26,14 @@ public class ProyectoTransversal {
 
 
     public static void main(String[] args) {
-        Conexion con=new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal","root","");
-        Alumno_data ad=new Alumno_data(con);
-        Materia_data md=new Materia_data(con);
-        Alumno alumno=new Alumno(41339109,"Roldan","Nicolas",LocalDate.of(1998, 10, 26),true);
+        Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal","root","");
+        Alumno_data ad = new Alumno_data(con);
+        Materia_data md = new Materia_data(con);
+        Alumno alumno = new Alumno(41339109,"Roldan","Nicolas",LocalDate.of(1998, 10, 26),true);
         //ad.agregarAlumno(alumno);
-        Materia materia = new Materia("Algebra 1",1,true);
+        Materia materia = new Materia("Algebra",1,true);
         //md.agregarMateria(materia);
+        md.modificarMateria("Algebra", false);
     }
     
 }

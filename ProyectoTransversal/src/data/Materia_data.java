@@ -61,14 +61,15 @@ public class Materia_data {
     
     }
     
-    public void actualizarEstadoAlumno(int dni){
-        String sql="UPDATE alumno SET estado=0 WHERE dni=?";
+    public void modificarMateria(String nombre, boolean estado){
+        String sql="UPDATE materia SET estado=? WHERE nombre LIKE ?";
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
-            ps.setInt(1, dni);
+            ps.setBoolean(1, estado);
+            ps.setString(2, nombre);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "El estado del alumno ha sido actualizado");
+            JOptionPane.showMessageDialog(null, "El estado de la materia ha sido actualizada");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
