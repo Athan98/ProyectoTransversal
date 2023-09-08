@@ -21,6 +21,8 @@ package proyectotransversal;
 import java.time.LocalDate;
 import data.*;
 import entidades.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,7 +37,19 @@ public class ProyectoTransversal {
         Materia_data md=new Materia_data(con);
         Alumno alumno=new Alumno(41339109,"Roldan","Nicolas",LocalDate.of(1998, 10, 26),true);
 //        ad.agregarAlumno(alumno);
-        
+//        ad.modificarEstadoAlumno(41339109, true);
+//        PRUEBA LISTAR
+        Alumno alumno2=new Alumno(13467088,"Rodriguez","Ignacio",LocalDate.of(1958, 7, 26),true);
+//        ad.agregarAlumno(alumno2);
+        Alumno alumno3=new Alumno(39993976,"Rech","Pablo",LocalDate.of(1996, 1, 20),true);
+//        ad.agregarAlumno(alumno3);
+        Alumno alumno4=new Alumno(40222369,"Fernandez","Juan",LocalDate.of(1997, 12, 01),true);
+//        ad.agregarAlumno(alumno4);
+        List<Alumno>alumnos=ad.listarAlumnosPorApellido("R");
+        for(Alumno a:alumnos){
+            System.out.println(a.toString());
+        }
+     
     }
     
 }
