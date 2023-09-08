@@ -24,14 +24,11 @@ import entidades.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author diego
- */
 public class ProyectoTransversal {
 
 
     public static void main(String[] args) {
+
         Conexion con=new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal","root","");
         Alumno_data ad=new Alumno_data(con);
         Materia_data md=new Materia_data(con);

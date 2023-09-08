@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -46,9 +45,7 @@ public class Alumno_data {
         }
     }
 
-    public void buscarAlumnoPorId(int id) {
-    }
-
+    
     public List listarAlumnosPorApellido(String apellido) {
         Alumno alumno = null;
         List<Alumno> alumnos = new ArrayList<>();
