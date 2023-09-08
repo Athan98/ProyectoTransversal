@@ -17,6 +17,11 @@ Funcionalidad: el sistema deberá
  */
 package proyectotransversal;
 
+
+import java.time.LocalDate;
+import data.*;
+import entidades.*;
+
 /**
  *
  * @author diego
@@ -25,7 +30,12 @@ public class ProyectoTransversal {
 
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        Conexion con=new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal","root","");
+        Alumno_data ad=new Alumno_data(con);
+        Materia_data md=new Materia_data(con);
+        Alumno alumno=new Alumno(41339109,"Roldan","Nicolas",LocalDate.of(1998, 10, 26),true);
+//        ad.agregarAlumno(alumno);
+        
     }
     
 }
