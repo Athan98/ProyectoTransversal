@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -45,36 +46,51 @@ public class Materia_data {
         }
     }
     
-    public void buscarMateriaPorId(int id ){
-        
-    }
     
     public List listarMateria(String apellido){
-        
-        
-        return null;
+        List<Materia> lista = new ArrayList();
+        Materia materia = null;
+        String sql = "SELECT FROM materia WHERE apellido LIKE ?";
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setString(1, apellido + "%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                materia = new Materia();
+                materia.setId_materia(rs.getInt("id_materia"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("anio"));
+                materia.setEstado(rs.getBoolean("estado")); 
+                lista.add(materia);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }
+        return lista;
     }
     
-    public void buscarAlumnoPorDni(int dni){
+    
+    public void modificarMateria(String nombre){
+        String sql="UPDATE materia SET ";
         
-    
-    }
-    
-    public void modificarMateria(String nombre, boolean estado){
-        String sql="UPDATE materia SET estado=? WHERE nombre LIKE ?";
+        String cambioEstado="estado=? WHERE nombre LIKE "+nombre;
+        //String cambioNombre="nombre=? WHERE nombre LIKE "+nombre;
+        //String cambioAnio="anio=? WHERE nombre LIKE "+nombre;
+
+        sql=sql+cambioEstado;
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
-            ps.setBoolean(1, estado);
-            ps.setString(2, nombre);
+            ps.setBoolean(1, false);
+            //ps.setString(1, "nuevoNombre");
+            //ps.setInt(1, nuevoAnio);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El estado de la materia ha sido actualizada");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
-        }
-    
-    }
-    
+        }    
+    }    
     
 }
