@@ -27,21 +27,99 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        escritorio = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jmAlumno = new javax.swing.JMenu();
+        jmFormularioAlum = new javax.swing.JMenuItem();
+        jmMateria = new javax.swing.JMenu();
+        jmFormMateria = new javax.swing.JMenuItem();
+        jmAdm = new javax.swing.JMenu();
+        jmInscripciones = new javax.swing.JMenuItem();
+        jmNotas = new javax.swing.JMenuItem();
+        jmConsultas = new javax.swing.JMenu();
+        jmAlumnosXMat = new javax.swing.JMenuItem();
+        jmSalir = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Administracion");
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 804, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+
+        jmAlumno.setText("Alumno");
+
+        jmFormularioAlum.setText("Formulario Alumno");
+        jmFormularioAlum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFormularioAlumActionPerformed(evt);
+            }
+        });
+        jmAlumno.add(jmFormularioAlum);
+
+        jMenuBar1.add(jmAlumno);
+
+        jmMateria.setText("Materia");
+
+        jmFormMateria.setText("Formulario Materia");
+        jmMateria.add(jmFormMateria);
+
+        jMenuBar1.add(jmMateria);
+
+        jmAdm.setText("Administracion");
+
+        jmInscripciones.setText("Manejo de Inscripciones");
+        jmAdm.add(jmInscripciones);
+
+        jmNotas.setText("Manipulacion de Notas");
+        jmAdm.add(jmNotas);
+
+        jMenuBar1.add(jmAdm);
+
+        jmConsultas.setText("Consultas");
+
+        jmAlumnosXMat.setText("Alumnos por Materia");
+        jmConsultas.add(jmAlumnosXMat);
+
+        jMenuBar1.add(jmConsultas);
+
+        jmSalir.setText("Salir");
+        jMenuBar1.add(jmSalir);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmFormularioAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFormularioAlumActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionAlumnos gt = new GestionAlumnos();
+        gt.setVisible(true);
+        escritorio.add(gt);
+        escritorio.moveToFront(gt);
+        
+        
+         
+    }//GEN-LAST:event_jmFormularioAlumActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +157,17 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jmAdm;
+    private javax.swing.JMenu jmAlumno;
+    private javax.swing.JMenuItem jmAlumnosXMat;
+    private javax.swing.JMenu jmConsultas;
+    private javax.swing.JMenuItem jmFormMateria;
+    private javax.swing.JMenuItem jmFormularioAlum;
+    private javax.swing.JMenuItem jmInscripciones;
+    private javax.swing.JMenu jmMateria;
+    private javax.swing.JMenuItem jmNotas;
+    private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }
