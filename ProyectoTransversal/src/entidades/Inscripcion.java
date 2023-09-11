@@ -7,6 +7,8 @@ public class Inscripcion {
     private int nota;
     private Alumno id_alumno;
     private Materia id_materia;
+    
+    
 
     public Inscripcion(int id_inscripcion, int nota, Alumno id_alumno, Materia id_materia) {
         this.id_inscripcion = id_inscripcion;
@@ -59,7 +61,7 @@ public class Inscripcion {
 
     @Override
     public String toString() {
-        return "Inscripcion{" + "id_inscripcion=" + id_inscripcion + ", nota=" + nota + ", id_alumno=" + id_alumno + ", id_materia=" + id_materia + '}';
+        return "ID : "+id_inscripcion+", Apellido: "+id_alumno.getApellido()+", Nombre: "+id_alumno.getNombre()+", DNI: "+id_alumno.getDni()+", Materia: "+id_materia.getNombre();
     }
     
     

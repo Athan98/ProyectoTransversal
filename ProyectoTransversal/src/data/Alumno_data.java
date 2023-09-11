@@ -1,4 +1,3 @@
-
 package data;
 
 import entidades.Alumno;
@@ -45,17 +44,15 @@ public class Alumno_data {
         }
     }
 
-    
     public List listarAlumnosPorApellido(String apellido) {
-        Alumno alumno = null;
         List<Alumno> alumnos = new ArrayList<>();
         String sql = "SELECT * FROM alumno WHERE apellido LIKE ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, apellido+"%");
+            ps.setString(1, apellido + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                alumno = new Alumno();
+                Alumno alumno = new Alumno();
                 alumno.setId_alumno(rs.getInt("id_alumno"));
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
@@ -68,6 +65,31 @@ public class Alumno_data {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
         }
+        return alumnos;
+    }
+
+    public List listarAlumnos() {
+        List<Alumno> alumnos = new ArrayList<>();
+        String sql = "SELECT * FROM alumno";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Alumno alumno = new Alumno();
+                alumno.setId_alumno(rs.getInt("id_alumno"));
+                alumno.setDni(rs.getInt("dni"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                alumno.setEstado(rs.getBoolean("estado"));
+                alumnos.add(alumno);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }
+
         return alumnos;
     }
 

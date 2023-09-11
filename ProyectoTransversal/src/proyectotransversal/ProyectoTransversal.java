@@ -42,10 +42,23 @@ public class ProyectoTransversal {
 //        ad.agregarAlumno(alumno3);
         Alumno alumno4=new Alumno(40222369,"Fernandez","Juan",LocalDate.of(1997, 12, 01),true);
 //        ad.agregarAlumno(alumno4);
-        List<Alumno>alumnos=ad.listarAlumnosPorApellido("R");
-        for(Alumno a:alumnos){
-            System.out.println(a.toString());
-        }
+//        List<Alumno>alumnos=ad.listarAlumnosPorApellido("R");
+//        for(Alumno a:alumnos){
+//            System.out.println(a.toString());
+//        }
+//        
+//        System.out.println(ad.buscarAlumnoPorDni(41339109));
+
+         Inscripcion_data id=new Inscripcion_data(con);
+//         System.out.println(id.listarInscripciones());
+//         System.out.println(id.listarInscripcionesPorAlumno(39993976));
+//         System.out.println(id.listarMateriasNOCursadasPorAlumno(39993976));
+//          System.out.println(id.listarMateriasCursadasPorAlumno(39993976));
+//           System.out.println(id.listarAlumnosPorMateria("Calculo"));
+
+//           id.eliminarInscripcion(41339109, "Calculo");
+
+//           System.out.println(ad.listarAlumnos());
      
     }
     
