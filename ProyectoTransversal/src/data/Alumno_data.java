@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -130,6 +132,22 @@ public class Alumno_data {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
         }
 
+    }
+    
+    public void eliminarAlumno(int dni){
+    
+        String sql="DELETE FROM alumno WHERE dni=?";
+        
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "El alumno ha sido eliminado");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }
+        
     }
 
 }
