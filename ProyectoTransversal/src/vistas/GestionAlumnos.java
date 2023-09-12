@@ -228,8 +228,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 a.setApellido(jtApellido.getText());
                 a.setDni(Integer.parseInt(jtDni.getText()));
                 a.setNombre(jtNombre.getText());
-                    // Pasamos de Date a LocalDate.
-                a.setFechaNac(jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()); 
+                // Pasamos de Date a LocalDate.
+                a.setFechaNac(jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
                 ad.agregarAlumno(a);
                 JOptionPane.showMessageDialog(this, "Alumno agregado");
@@ -243,14 +243,19 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        try {
+            ad.eliminarAlumno(Integer.parseInt(jtDni.getText()));
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this,"Ingrese un DNI");
+        }
         
-        
-        
+
+
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         
-        
+
     }//GEN-LAST:event_jbGuardarActionPerformed
 
 
