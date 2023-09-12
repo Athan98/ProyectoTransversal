@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -118,15 +119,19 @@ public class Alumno_data {
         return alumno;
     }
 
-    public void modificarEstadoAlumno(int dni, boolean estado) {
-        String sql = "UPDATE alumno SET estado=? WHERE dni=?";
+    public void modificarAlumno(int dni, String apellido, String nombre, LocalDate fechaNac, boolean estado) {
+        String sql = "UPDATE alumno SET dni=?,apellido=?,nombre=?,fechaNac=?,estado=? WHERE dni=?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setBoolean(1, estado);
-            ps.setInt(2, dni);
+            ps.setInt(1, dni);
+            ps.setString(2, apellido);
+            ps.setString(3, nombre);
+            ps.setDate(4, Date.valueOf(fechaNac));
+            ps.setBoolean(5, estado);
+            ps.setInt(6, dni);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "El estado del alumno ha sido actualizado");
+            JOptionPane.showMessageDialog(null, "Los datos del alumno han sido actualizados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
