@@ -44,19 +44,17 @@ public class Materia_data {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error de sentencia");
         }
-    }
+    }    
     
-    
-    public List listarMateria(String apellido){
+    public List listarMateriasAlumno(String apellido){
         List<Materia> lista = new ArrayList();
-        Materia materia = null;
+        Materia materia = new Materia();
         String sql = "SELECT FROM materia WHERE apellido LIKE ?";
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setString(1, apellido + "%");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                materia = new Materia();
                 materia.setId_materia(rs.getInt("id_materia"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnio(rs.getInt("anio"));
@@ -69,28 +67,58 @@ public class Materia_data {
         }
         return lista;
     }
-    
-    
-    public void modificarMateria(String nombre){
-        String sql="UPDATE materia SET ";
-        
-        String cambioEstado="estado=? WHERE nombre LIKE "+nombre;
-        //String cambioNombre="nombre=? WHERE nombre LIKE "+nombre;
-        //String cambioAnio="anio=? WHERE nombre LIKE "+nombre;
 
-        sql=sql+cambioEstado;
+    public Materia buscarMateria(String nombre){
+        Materia materia = new Materia();
+        
+        String sql="SELECT * FROM materia WHERE nombre LIKE ?;";
+        
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setString(1, nombre + "%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){                
+                materia.setId_materia(rs.getInt("id_materia"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("anio"));
+                materia.setEstado(rs.getBoolean("estado"));                 
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }        
+        return materia;
+    }
+    
+    public void modificarMateria(String nombre, int anio, boolean estado){
+        String sql="UPDATE materia SET nombre=? anio=? estado=? WHERE nombre LIKE " + nombre;
+        
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setInt(2, anio);
+            ps.setBoolean(3, estado);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "La materia ha sido actualizada");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }    
+    }
+
+    public void modificarEstado(String nombre, boolean estado){
+        String sql="UPDATE materia SET estado=? WHERE nombre LIKE "+nombre;
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setBoolean(1, false);
-            //ps.setString(1, "nuevoNombre");
-            //ps.setInt(1, nuevoAnio);
+
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El estado de la materia ha sido actualizada");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
-        }    
-    }    
+        }
+    }
     
 }
