@@ -25,3 +25,6 @@ replay_pid*
 ./ProyectoTransversal/nbproject/private/private.properties
 *.properties
 ProyectoTransversal/nbproject/private/private.properties
+*.properties
+*.xml
+*.xml
