@@ -33,7 +33,7 @@ public class ProyectoTransversal {
         Alumno_data ad=new Alumno_data(con);
         Materia_data md=new Materia_data(con);
         Alumno alumno=new Alumno(41339109,"Roldan","Nicolas",LocalDate.of(1998, 10, 26),true);
-//        ad.agregarAlumno(alumno);
+        ad.agregarAlumno(alumno);
 //        ad.modificarEstadoAlumno(41339109, true);
 //        PRUEBA LISTAR
         Alumno alumno2=new Alumno(13467088,"Rodriguez","Ignacio",LocalDate.of(1958, 7, 26),true);
