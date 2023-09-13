@@ -114,10 +114,7 @@ public class Materia_data {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setBoolean(1, false);
             ps.setString(2, nombre);
-<<<<<<< HEAD
-=======
 
->>>>>>> b4a9fb29a33b8cad53b62dc335e5ff9231b19b19
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El estado de la materia ha sido actualizada");
             ps.close();
@@ -128,17 +125,11 @@ public class Materia_data {
     
     public void eliminarMateria(String nombre){
     
-<<<<<<< HEAD
+
         String sql="DELETE FROM materia WHERE nombre LIKE ?";
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
-=======
-        String sql="DELETE FROM materia WHERE nombre LIKE ? ";
-        
-        try {
-            PreparedStatement ps=conexion.prepareStatement(sql);   
->>>>>>> b4a9fb29a33b8cad53b62dc335e5ff9231b19b19
             ps.setString(1, nombre);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La materia ha sido eliminada");
