@@ -250,6 +250,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         
         try {
             ad.eliminarAlumno(Integer.parseInt(jtDni.getText()));
+            JOptionPane.showMessageDialog(null, "El alumno ha sido eliminado");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un DNI");
         }
