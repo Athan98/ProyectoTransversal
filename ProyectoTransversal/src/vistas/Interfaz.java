@@ -5,10 +5,10 @@
  */
 package vistas;
 
-/**
- *
- * @author diego
- */
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 public class Interfaz extends javax.swing.JFrame {
 
     /**
@@ -27,7 +27,13 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/images/fondoEscritorio.jpg"));
+        Image image = icon.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);}
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jmAlumno = new javax.swing.JMenu();
         jmFormularioAlum = new javax.swing.JMenuItem();

@@ -245,16 +245,15 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         try {
             ad.eliminarAlumno(Integer.parseInt(jtDni.getText()));
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this,"Ingrese un DNI");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un DNI");
         }
-        
 
 
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        
+
 
     }//GEN-LAST:event_jbGuardarActionPerformed
 
