@@ -91,13 +91,12 @@ public class Materia_data {
     }
     
     public void modificarMateria(String nombre, int anio, boolean estado){
-        String sql="UPDATE materia SET nombre=? anio=? estado=? WHERE nombre LIKE " + nombre;
+        String sql="UPDATE materia SET anio=?, estado=? WHERE nombre LIKE " + nombre;
         
         try {
-            PreparedStatement ps=conexion.prepareStatement(sql);
-            ps.setString(1, nombre);
-            ps.setInt(2, anio);
-            ps.setBoolean(3, estado);
+            PreparedStatement ps=conexion.prepareStatement(sql);            
+            ps.setInt(1, anio);
+            ps.setBoolean(2, estado);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La materia ha sido actualizada");
             ps.close();
@@ -120,5 +119,21 @@ public class Materia_data {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
         }
     }
+    
+    public void eliminarMateria(int nombre){
+    
+        String sql="DELETE FROM materia WHERE nombre LIKE " + nombre;
+        
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);           
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "La materia ha sido eliminado");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }
+        
+    }
+    
     
 }

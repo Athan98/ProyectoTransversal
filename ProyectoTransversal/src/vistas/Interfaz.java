@@ -82,6 +82,11 @@ public class Interfaz extends javax.swing.JFrame {
         jmAdm.setText("Administracion");
 
         jmInscripciones.setText("Manejo de Inscripciones");
+        jmInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmInscripcionesActionPerformed(evt);
+            }
+        });
         jmAdm.add(jmInscripciones);
 
         jmNotas.setText("Manipulacion de Notas");
@@ -126,6 +131,15 @@ public class Interfaz extends javax.swing.JFrame {
         
          
     }//GEN-LAST:event_jmFormularioAlumActionPerformed
+
+    private void jmInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInscripcionesActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionInscripcion gi = new GestionInscripcion();
+        gi.setVisible(true);
+        escritorio.add(gi);
+        escritorio.moveToFront(gi);
+    }//GEN-LAST:event_jmInscripcionesActionPerformed
 
     /**
      * @param args the command line arguments
