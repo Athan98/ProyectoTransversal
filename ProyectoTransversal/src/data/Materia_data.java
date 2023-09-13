@@ -45,13 +45,13 @@ public class Materia_data {
         }
     }    
     
-    public List listarMateriasAlumno(String apellido){
+    public List listarMateriasAlumno(int dni){
         List<Materia> lista = new ArrayList();
         Materia materia = new Materia();
-        String sql = "SELECT FROM materia WHERE apellido LIKE ?";
+        String sql = "SELECT * FROM inscripcion i JOIN materia m ON(i.id_materia=m.id_materia) JOIN alumno a ON (i.id_alumno=a.id_alumno) WHERE a.dni=?";
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
-            ps.setString(1, apellido + "%");
+            ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 materia.setId_materia(rs.getInt("id_materia"));
@@ -107,12 +107,12 @@ public class Materia_data {
     }
 
     public void modificarEstado(String nombre, boolean estado){
-        String sql="UPDATE materia SET estado=? WHERE nombre LIKE "+nombre;
+        String sql="UPDATE materia SET estado=? WHERE nombre LIKE ?";
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setBoolean(1, false);
-
+            ps.setString(2, nombre);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El estado de la materia ha sido actualizada");
             ps.close();
@@ -121,12 +121,13 @@ public class Materia_data {
         }
     }
     
-    public void eliminarMateria(int nombre){
+    public void eliminarMateria(String nombre){
     
-        String sql="DELETE FROM materia WHERE nombre LIKE " + nombre;
+        String sql="DELETE FROM materia WHERE nombre LIKE ?";
         
         try {
-            PreparedStatement ps=conexion.prepareStatement(sql);           
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setString(1, nombre);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "La materia ha sido eliminado");
             ps.close();

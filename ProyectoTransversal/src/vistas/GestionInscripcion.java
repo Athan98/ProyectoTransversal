@@ -217,6 +217,17 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No hay ningun alumno con ese DNI.");
             } else {                
                 jlAlumno.setText(a.getApellido()+ " " +a.getNombre());
+                
+                md.listarMateriasAlumno(a.getDni());
+        
+                modelo.setRowCount(0); //borra la tabla
+                for(Materia mat:listamat){//carga la tabla                              
+                    modelo.addRow(new Object[]{
+                            mat.getNombre(),
+                            mat.getAnio()
+                    });                   
+                }   
+                
             }
 
         } catch (NumberFormatException | NullPointerException e) {
@@ -229,17 +240,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jrbMatni.setSelected(false);
         if (jrbMati.isSelected() == false) {
             jrbMatni.setSelected(true);
-        }
+        }       
         
-        md.listarMateriasAlumno(title);
-        
-        modelo.setRowCount(0); //borra la tabla
-        for(Materia mat:listamat){//carga la tabla                              
-            modelo.addRow(new Object[]{
-                    mat.getNombre(),
-                    mat.getAnio()
-            });                   
-        }   
     }//GEN-LAST:event_jrbMatiActionPerformed
 
     private void jrbMatniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatniActionPerformed
