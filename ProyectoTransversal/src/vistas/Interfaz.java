@@ -75,6 +75,11 @@ public class Interfaz extends javax.swing.JFrame {
         jmMateria.setText("Materia");
 
         jmFormMateria.setText("Formulario Materia");
+        jmFormMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFormMateriaActionPerformed(evt);
+            }
+        });
         jmMateria.add(jmFormMateria);
 
         jMenuBar1.add(jmMateria);
@@ -132,6 +137,7 @@ public class Interfaz extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jmFormularioAlumActionPerformed
 
+
     private void jmInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInscripcionesActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
@@ -140,6 +146,15 @@ public class Interfaz extends javax.swing.JFrame {
         escritorio.add(gi);
         escritorio.moveToFront(gi);
     }//GEN-LAST:event_jmInscripcionesActionPerformed
+
+    private void jmFormMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFormMateriaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionMateria gm=new GestionMateria();
+        gm.setVisible(true);
+        escritorio.add(gm);
+        escritorio.moveToFront(gm);
+    }//GEN-LAST:event_jmFormMateriaActionPerformed
 
     /**
      * @param args the command line arguments

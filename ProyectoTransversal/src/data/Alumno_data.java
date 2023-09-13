@@ -120,7 +120,7 @@ public class Alumno_data {
     }
 
     public void modificarAlumno(int dni, String apellido, String nombre, LocalDate fechaNac, boolean estado) {
-        String sql = "UPDATE alumno SET dni=?,apellido=?,nombre=?,fechaNac=?,estado=? WHERE dni=?";
+        String sql = "UPDATE alumno SET apellido=?,nombre=?,fechaNac=?,estado=? WHERE dni=?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);

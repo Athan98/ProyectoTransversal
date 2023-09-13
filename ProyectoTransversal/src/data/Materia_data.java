@@ -36,7 +36,6 @@ public class Materia_data {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 materia.setId_materia(rs.getInt(1));           
-                JOptionPane.showMessageDialog(null,"Materia agregada exitosamente");
             }else{
                 JOptionPane.showMessageDialog(null,"Error al obtener el ID");
             }           
@@ -69,15 +68,16 @@ public class Materia_data {
     }
 
     public Materia buscarMateria(String nombre){
-        Materia materia = new Materia();
+        Materia materia = null;
         
-        String sql="SELECT * FROM materia WHERE nombre LIKE ?;";
+        String sql="SELECT * FROM materia WHERE nombre LIKE ?";
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setString(1, nombre + "%");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){                
+            while(rs.next()){ 
+                materia=new Materia();
                 materia.setId_materia(rs.getInt("id_materia"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnio(rs.getInt("anio"));
@@ -91,7 +91,8 @@ public class Materia_data {
     }
     
     public void modificarMateria(String nombre, int anio, boolean estado){
-        String sql="UPDATE materia SET anio=?, estado=? WHERE nombre LIKE " + nombre;
+        String sql="UPDATE materia SET anio=?,estado=? WHERE nombre LIKE " + nombre;
+
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);            
