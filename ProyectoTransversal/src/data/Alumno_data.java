@@ -147,7 +147,7 @@ public class Alumno_data {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setInt(1, dni);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "El alumno ha sido eliminado");
+            
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");

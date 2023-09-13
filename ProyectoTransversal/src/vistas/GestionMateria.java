@@ -88,6 +88,11 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +236,18 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         
+        try{
+            if(jtNombre.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la materia");
+            }else{
+                md.eliminarMateria(jtNombre.getText());
+            }
         
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la materia");
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error");
+        }
         
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -240,6 +256,11 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         
                 
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        
+        
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
