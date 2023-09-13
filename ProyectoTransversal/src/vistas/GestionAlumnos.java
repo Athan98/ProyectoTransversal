@@ -8,9 +8,9 @@ package vistas;
 import data.*;
 import entidades.*;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
+import sun.security.action.GetBooleanSecurityPropertyAction;
 
 /**
  *
@@ -23,6 +23,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     public GestionAlumnos() {
         initComponents();
+        
     }
 
     /**
@@ -104,6 +105,11 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         });
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -252,10 +258,25 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+<<<<<<< Updated upstream
 
+=======
+        try{
+            //Ojo restricion numeros
+            ad.modificarAlumno(Integer.parseInt(jtDni.getText()), jtApellido.getText(), jtNombre.getText(), jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jrbEstado.isSelected());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(this, "Por favor elija una fecha de nacimiento valida.");
+        }
+>>>>>>> Stashed changes
         
 
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
