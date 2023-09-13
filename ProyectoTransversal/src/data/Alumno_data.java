@@ -124,12 +124,12 @@ public class Alumno_data {
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, dni);
-            ps.setString(2, apellido);
-            ps.setString(3, nombre);
-            ps.setDate(4, Date.valueOf(fechaNac));
-            ps.setBoolean(5, estado);
-            ps.setInt(6, dni);
+            
+            ps.setString(1, apellido);
+            ps.setString(2, nombre);
+            ps.setDate(3, Date.valueOf(fechaNac));
+            ps.setBoolean(4, estado);
+            ps.setInt(5, dni);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Los datos del alumno han sido actualizados");
             ps.close();
