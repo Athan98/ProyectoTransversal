@@ -92,7 +92,7 @@ public class Inscripcion_data {
 
     public List listarInscripcionesPorAlumno(int dni) {
         List<Inscripcion> inscripcionesList = new ArrayList<>();
-        String sql = "SELECT inscripcion.id_Inscripcion,alumno.dni,alumno.apellido,alumno.nombre,materia.nombre AS nombreMateria FROM inscripcion JOIN alumno ON (inscripcion.id_alumno=alumno.id_alumno) JOIN materia ON (inscripcion.id_materia=materia.id_materia) WHERE alumno.dni=?";
+        String sql = "SELECT inscripcion.id_Inscripcion,alumno.dni,alumno.apellido,alumno.nombre,materia.nombre AS nombreMateria, materia.anio FROM inscripcion JOIN alumno ON (inscripcion.id_alumno=alumno.id_alumno) JOIN materia ON (inscripcion.id_materia=materia.id_materia) WHERE alumno.dni=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, dni);
@@ -107,6 +107,7 @@ public class Inscripcion_data {
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("anio"));
                 inscripcion.setId_materia(materia);
                 materia.setNombre(rs.getString("nombreMateria"));
                 inscripcionesList.add(inscripcion);

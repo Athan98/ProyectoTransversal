@@ -11,6 +11,8 @@ import entidades.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +25,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal", "root", "");
     private Alumno_data ad = new Alumno_data(con);
     private Materia_data md = new Materia_data(con);
-    public static TreeSet<Materia> listamat = new TreeSet<>();
+    private Inscripcion_data id = new Inscripcion_data(con);
+    
     
     
     private DefaultTableModel modelo = new DefaultTableModel(){
@@ -64,6 +67,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtListamat = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,6 +82,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        setClosable(true);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText("Inscripción a Materias");
@@ -129,6 +136,15 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jtListamat);
 
+        jButton1.setText("Inscribir");
+
+        jButton2.setText("Anular Inscripcion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,13 +184,19 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel6)
                 .addGap(130, 130, 130))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGap(170, 170, 170)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(77, 77, 77)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(66, 66, 66))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +224,11 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                     .addComponent(jrbMatni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -211,6 +237,7 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
 
         Alumno a = new Alumno();
+        List<Inscripcion> listamat = new ArrayList<>();
         try {
             a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDni.getText()));
             if (a == null) {
@@ -218,13 +245,13 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
             } else {                
                 jlAlumno.setText(a.getApellido()+ " " +a.getNombre());
                 
-                md.listarMateriasAlumno(a.getDni());
+                listamat = id.listarInscripcionesPorAlumno(a.getDni());
         
                 modelo.setRowCount(0); //borra la tabla
-                for(Materia mat:listamat){//carga la tabla                              
+                for(Inscripcion insc:listamat){//carga la tabla                              
                     modelo.addRow(new Object[]{
-                            mat.getNombre(),
-                            mat.getAnio()
+                            insc.getId_materia().getNombre(),
+                            insc.getId_materia().getAnio()
                     });                   
                 }   
                 
@@ -251,8 +278,14 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jrbMatniActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

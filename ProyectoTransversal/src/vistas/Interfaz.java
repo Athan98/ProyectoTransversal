@@ -142,7 +142,6 @@ public class Interfaz extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jmFormularioAlumActionPerformed
 
-<<<<<<< Updated upstream
 
     private void jmInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInscripcionesActionPerformed
         escritorio.removeAll();
@@ -161,11 +160,11 @@ public class Interfaz extends javax.swing.JFrame {
         escritorio.add(gm);
         escritorio.moveToFront(gm);
     }//GEN-LAST:event_jmFormMateriaActionPerformed
-=======
+
     private void jmNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNotasActionPerformed
        
     }//GEN-LAST:event_jmNotasActionPerformed
->>>>>>> Stashed changes
+
 
     /**
      * @param args the command line arguments

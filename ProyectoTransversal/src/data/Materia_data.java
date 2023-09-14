@@ -45,27 +45,6 @@ public class Materia_data {
         }
     }    
     
-    public List listarMateriasAlumno(int dni){
-        List<Materia> lista = new ArrayList();
-        Materia materia = new Materia();
-        String sql = "SELECT * FROM inscripcion i JOIN materia m ON(i.id_materia=m.id_materia) JOIN alumno a ON (i.id_alumno=a.id_alumno) WHERE a.dni=?";
-        try {
-            PreparedStatement ps=conexion.prepareStatement(sql);
-            ps.setInt(1, dni);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                materia.setId_materia(rs.getInt("id_materia"));
-                materia.setNombre(rs.getString("nombre"));
-                materia.setAnio(rs.getInt("anio"));
-                materia.setEstado(rs.getBoolean("estado")); 
-                lista.add(materia);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de sentencia");
-        }
-        return lista;
-    }
 
     public Materia buscarMateria(String nombre){
         Materia materia = null;
