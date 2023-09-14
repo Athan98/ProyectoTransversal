@@ -56,7 +56,6 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Carga de Notas");
 
-        jcbAlumnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Alumno:" }));
         jcbAlumnos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbAlumnosItemStateChanged(evt);
