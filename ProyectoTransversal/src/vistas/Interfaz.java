@@ -154,7 +154,12 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jmFormMateriaActionPerformed
 
     private void jmNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNotasActionPerformed
-       
+        escritorio.removeAll();
+        escritorio.repaint();
+        ManipulacionNotas mn = new ManipulacionNotas();
+        mn.setVisible(true);
+        escritorio.add(mn);
+        escritorio.moveToFront(mn);
     }//GEN-LAST:event_jmNotasActionPerformed
 
 
