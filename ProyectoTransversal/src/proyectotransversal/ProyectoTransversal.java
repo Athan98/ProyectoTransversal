@@ -48,7 +48,7 @@ public class ProyectoTransversal {
 //            System.out.println(a.toString());
 //        }        
 //        System.out.println(ad.buscarAlumnoPorDni(41339109));
-            System.out.println(id.listarInscripcionesPorAlumno(41339109));
+            System.out.println(id.listarMateriasNOCursadasPorAlumno(41339109));
          
 //         System.out.println(id.listarInscripciones());
 //         System.out.println(id.listarInscripcionesPorAlumno(39993976));

@@ -46,7 +46,7 @@ public class Inscripcion_data {
 
         String sql = "UPDATE inscripcion i JOIN alumno a ON(i.id_alumno=a.id_alumno) "
                 + "JOIN materia m ON(i.id_materia=m.id_materia) SET nota=?  WHERE a.dni=? "
-                + "AND m.nombre LIKE ?";
+                + "AND m.nombreMateria LIKE ?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -63,7 +63,7 @@ public class Inscripcion_data {
 
     public List listarInscripciones() {
         List<Inscripcion> inscripcionesList = new ArrayList<>();
-        String sql = "SELECT inscripcion.id_Inscripcion,alumno.dni,alumno.apellido,alumno.nombre,materia.nombre AS nombreMateria FROM inscripcion JOIN alumno ON (inscripcion.id_alumno=alumno.id_alumno) JOIN materia ON (inscripcion.id_materia=materia.id_materia)";
+        String sql = "SELECT * FROM inscripcion JOIN alumno ON (inscripcion.id_alumno=alumno.id_alumno) JOIN materia ON (inscripcion.id_materia=materia.id_materia)";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -92,7 +92,7 @@ public class Inscripcion_data {
 
     public List listarInscripcionesPorAlumno(int dni) {
         List<Inscripcion> inscripcionesList = new ArrayList<>();
-        String sql = "SELECT inscripcion.id_Inscripcion,alumno.dni,alumno.apellido,alumno.nombre,materia.nombre AS nombreMateria, materia.anio FROM inscripcion JOIN alumno ON (inscripcion.id_alumno=alumno.id_alumno) JOIN materia ON (inscripcion.id_materia=materia.id_materia) WHERE alumno.dni=?";
+        String sql = "SELECT * FROM inscripcion JOIN alumno ON (inscripcion.id_alumno=alumno.id_alumno) JOIN materia ON (inscripcion.id_materia=materia.id_materia) WHERE alumno.dni=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, dni);
@@ -121,7 +121,7 @@ public class Inscripcion_data {
 
     public List listarMateriasNOCursadasPorAlumno(int dni) {
         List<Materia> materiasList = new ArrayList<>();
-        String sql = "SELECT m.id_materia, m.nombre AS nombreMateria,m.anio,m.estado FROM materia m WHERE m.id_materia NOT IN ( SELECT i.id_materia FROM inscripcion i JOIN alumno a ON i.id_alumno = a.id_alumno WHERE a.dni = ? )";
+        String sql = "SELECT * FROM materia m WHERE m.id_materia NOT IN ( SELECT i.id_materia FROM inscripcion i JOIN alumno a ON i.id_alumno = a.id_alumno WHERE a.dni = ? )";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -145,7 +145,7 @@ public class Inscripcion_data {
 
     public List listarMateriasCursadasPorAlumno(int dni) {
         List<Materia> materiasList = new ArrayList<>();
-        String sql = "SELECT m.id_materia, m.nombre AS nombreMateria,m.anio,m.estado FROM materia m WHERE m.id_materia IN ( SELECT i.id_materia FROM inscripcion i JOIN alumno a ON i.id_alumno = a.id_alumno WHERE a.dni = ? )";
+        String sql = "SELECT * FROM materia m WHERE m.id_materia IN ( SELECT i.id_materia FROM inscripcion i JOIN alumno a ON i.id_alumno = a.id_alumno WHERE a.dni = ? )";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -171,7 +171,7 @@ public class Inscripcion_data {
     public List listarAlumnosPorMateria(String nombreMateria) {
 
         List<Alumno> alumnosList = new ArrayList<>();
-        String sql = "SELECT a.id_alumno,a.dni, a.apellido, a.nombre,a.fechaNac,a.estado FROM alumno a JOIN inscripcion i ON (a.id_alumno = i.id_alumno) JOIN materia m ON (i.id_materia = m.id_materia) WHERE m.nombre LIKE ?";
+        String sql = "SELECT * FROM alumno a JOIN inscripcion i ON (a.id_alumno = i.id_alumno) JOIN materia m ON (i.id_materia = m.id_materia) WHERE m.nombreMateria LIKE ?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -195,7 +195,7 @@ public class Inscripcion_data {
     }
 
     public void eliminarInscripcion(int dni, String nombreMateria) {
-        String sql = "DELETE FROM inscripcion WHERE id_alumno IN (SELECT id_alumno FROM alumno WHERE dni = ?) AND id_materia IN (SELECT id_materia FROM materia WHERE nombre LIKE ?)";
+        String sql = "DELETE FROM inscripcion WHERE id_alumno IN (SELECT id_alumno FROM alumno WHERE dni = ?) AND id_materia IN (SELECT id_materia FROM materia WHERE nombreMateria LIKE ?)";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);

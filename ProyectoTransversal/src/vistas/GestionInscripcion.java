@@ -8,12 +8,8 @@ package vistas;
 
 import data.*;
 import entidades.*;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -30,7 +26,7 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     
     
     private DefaultTableModel modelo = new DefaultTableModel(){
-        public boolean isCellEditable(int fila, int col){
+        public boolean isCellEditable(int fila, int col){ 
             return false;
         }
     };
@@ -39,7 +35,6 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
      */
     public GestionInscripcion() {
         initComponents();
-        cargarRadioButton();
         cargarCabeceraLista();
     }
 
@@ -67,8 +62,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtListamat = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbInscribir = new javax.swing.JButton();
+        jbDesinscribir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,12 +131,12 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jtListamat);
 
-        jButton1.setText("Inscribir");
+        jbInscribir.setText("Inscribir");
 
-        jButton2.setText("Anular Inscripcion");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbDesinscribir.setText("Anular Inscripcion");
+        jbDesinscribir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbDesinscribirActionPerformed(evt);
             }
         });
 
@@ -193,9 +188,9 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addComponent(jButton1)
+                .addComponent(jbInscribir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jbDesinscribir)
                 .addGap(66, 66, 66))
         );
         layout.setVerticalGroup(
@@ -226,8 +221,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jbInscribir)
+                    .addComponent(jbDesinscribir))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -237,26 +232,13 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
 
         Alumno a = new Alumno();
-        List<Inscripcion> listamat = new ArrayList<>();
         try {
             a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDni.getText()));
             if (a == null) {
                 JOptionPane.showMessageDialog(this, "No hay ningun alumno con ese DNI.");
             } else {                
                 jlAlumno.setText(a.getApellido()+ " " +a.getNombre());
-                
-                listamat = id.listarInscripcionesPorAlumno(a.getDni());
-        
-                modelo.setRowCount(0); //borra la tabla
-                for(Inscripcion insc:listamat){//carga la tabla                              
-                    modelo.addRow(new Object[]{
-                            insc.getId_materia().getNombre(),
-                            insc.getId_materia().getAnio()
-                    });                   
-                }   
-                
             }
-
         } catch (NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Ingrese el DNI correctamente.");
         }
@@ -264,28 +246,48 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jrbMatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatiActionPerformed
-        jrbMatni.setSelected(false);
-        if (jrbMati.isSelected() == false) {
-            jrbMatni.setSelected(true);
-        }       
+        jrbMatni.setSelected(false);        
+        List<Inscripcion> listamat = new ArrayList<>();
+        
+        listamat = id.listarInscripcionesPorAlumno(Integer.parseInt(jtDni.getText()));        
+        
+        
+        //MODIFICACION DE TABLA
+        modelo.setRowCount(0); //borra la tabla
+        for(Inscripcion insc:listamat){//carga la tabla                              
+            modelo.addRow(new Object[]{
+                insc.getId_materia().getNombre(),
+                insc.getId_materia().getAnio()
+            });                   
+        }        
         
     }//GEN-LAST:event_jrbMatiActionPerformed
 
     private void jrbMatniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatniActionPerformed
         jrbMati.setSelected(false);
-        if (jrbMatni.isSelected() == false) {
-            jrbMati.setSelected(true);
-        }
+        List<Materia> listamat = new ArrayList<>();
+        
+        listamat = id.listarMateriasNOCursadasPorAlumno(Integer.parseInt(jtDni.getText()));        
+        
+        
+        //MODIFICACION DE TABLA
+        modelo.setRowCount(0); //borra la tabla
+        for(Materia mat:listamat){//carga la tabla                              
+            modelo.addRow(new Object[]{
+                mat.getNombre(),
+                mat.getAnio()
+            });                   
+        }       
     }//GEN-LAST:event_jrbMatniActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jbDesinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDesinscribirActionPerformed
+        String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
+            
+        id.eliminarInscripcion(Integer.parseInt(jtDni.getText()),mat);
+    }//GEN-LAST:event_jbDesinscribirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -296,6 +298,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbDesinscribir;
+    private javax.swing.JButton jbInscribir;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JRadioButton jrbMati;
     private javax.swing.JRadioButton jrbMatni;
@@ -303,15 +307,12 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtListamat;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarCabeceraLista(){
+    public void cargarCabeceraLista(){ //agrego nombre a las columnas y cargo el modelo
         modelo.addColumn("Nombre");
         modelo.addColumn("Año");        
         jtListamat.setModel(modelo);
     }
     
-    public void cargarRadioButton(){
-        jrbMati.setSelected(true);
-        jrbMatni.setSelected(false);
-    }
+    
 
 }
