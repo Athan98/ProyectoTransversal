@@ -16,6 +16,7 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -41,7 +42,6 @@ public class Interfaz extends javax.swing.JFrame {
         jmFormMateria = new javax.swing.JMenuItem();
         jmAdm = new javax.swing.JMenu();
         jmInscripciones = new javax.swing.JMenuItem();
-        jmNotas = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jmAlumnosXMat = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
@@ -93,14 +93,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jmAdm.add(jmInscripciones);
-
-        jmNotas.setText("Manipulacion de Notas");
-        jmNotas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmNotasActionPerformed(evt);
-            }
-        });
-        jmAdm.add(jmNotas);
 
         jMenuBar1.add(jmAdm);
 
@@ -202,7 +194,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jmAdm;
     private javax.swing.JMenu jmAlumno;
@@ -212,7 +204,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmFormularioAlum;
     private javax.swing.JMenuItem jmInscripciones;
     private javax.swing.JMenu jmMateria;
-    private javax.swing.JMenuItem jmNotas;
     private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }

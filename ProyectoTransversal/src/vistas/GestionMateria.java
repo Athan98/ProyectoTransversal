@@ -219,7 +219,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
         try {
             if (jtNombre.getText().isEmpty() || jtAño.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor complete  los campos Nombre y Año");
+                JOptionPane.showMessageDialog(this, "Por favor complete los campos");
             } else {
                 m.setNombre(jtNombre.getText());
                 m.setEstado(jrEstado.isSelected());
@@ -227,6 +227,10 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
                 md.agregarMateria(m);
                 JOptionPane.showMessageDialog(this, "Materia agregada");
+                jtNombre.setText("");
+                jtAño.setText("");
+                jtCodigo.setText("");
+                jrEstado.setSelected(false);
             }
         } catch (NullPointerException | NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Complete correctamente los campos.");
@@ -241,6 +245,10 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la materia");
             }else{
                 md.eliminarMateria(jtNombre.getText());
+                jtNombre.setText("");
+                jtAño.setText("");
+                jtCodigo.setText("");
+                jrEstado.setSelected(false);
             }
         
         }catch(NullPointerException e){
@@ -253,12 +261,19 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         
-        
+        Interfaz.escritorio.removeAll();
+        Interfaz.escritorio.repaint();
                 
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         
+        try{
+        md.modificarMateria(jtNombre.getText(), Integer.parseInt(jtAño.getText()) , jrEstado.isSelected());
+        JOptionPane.showMessageDialog(this, "La materia ha sido modificada");
+        }catch (NumberFormatException | NullPointerException e){
+            JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");}
+     
         
     }//GEN-LAST:event_jbGuardarActionPerformed
 
