@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import vistas.GestionMateria;
 
 
 
@@ -25,7 +26,7 @@ public class Materia_data {
     
     public void agregarMateria(Materia materia){
         
-        String sql = "INSERT INTO materia (nombre, anio, estado) VALUES (?,?,?);";
+        String sql = "INSERT INTO materia (nombreMateria, anio, estado) VALUES (?,?,?);";
         
         try {
             PreparedStatement ps = conexion.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -36,7 +37,6 @@ public class Materia_data {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 materia.setId_materia(rs.getInt(1));           
-                JOptionPane.showMessageDialog(null,"Materia agregada exitosamente");
             }else{
                 JOptionPane.showMessageDialog(null,"Error al obtener el ID");
             }           
@@ -44,53 +44,83 @@ public class Materia_data {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error de sentencia");
         }
-    }
+    }    
     
-    
-    public List listarMateria(String apellido){
-        List<Materia> lista = new ArrayList();
+
+    public Materia buscarMateria(String nombreMateria){
         Materia materia = null;
-        String sql = "SELECT FROM materia WHERE apellido LIKE ?";
+        
+        String sql="SELECT * FROM materia WHERE nombreMateria LIKE ?";
+        
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
-            ps.setString(1, apellido + "%");
+            ps.setString(1, nombreMateria + "%");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                materia = new Materia();
+            while(rs.next()){ 
+                materia=new Materia();
                 materia.setId_materia(rs.getInt("id_materia"));
-                materia.setNombre(rs.getString("nombre"));
+                materia.setNombre(rs.getString("nombreMateria"));
                 materia.setAnio(rs.getInt("anio"));
-                materia.setEstado(rs.getBoolean("estado")); 
-                lista.add(materia);
+                materia.setEstado(rs.getBoolean("estado"));                 
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
-        }
-        return lista;
+        }        
+        return materia;
     }
     
-    
-    public void modificarMateria(String nombre){
-        String sql="UPDATE materia SET ";
-        
-        String cambioEstado="estado=? WHERE nombre LIKE "+nombre;
-        //String cambioNombre="nombre=? WHERE nombre LIKE "+nombre;
-        //String cambioAnio="anio=? WHERE nombre LIKE "+nombre;
+    public void modificarMateria(String nombreMateria, int anio, boolean estado){
+        String sql="UPDATE materia SET anio=?,estado=? WHERE nombreMateria LIKE ?";
 
-        sql=sql+cambioEstado;
+        
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);            
+            ps.setInt(1, anio);
+            ps.setBoolean(2, estado);
+            ps.setString(3, nombreMateria);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "La materia ha sido actualizada");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }    
+    }
+
+    public void modificarEstado(String nombreMateria, boolean estado){
+        String sql="UPDATE materia SET estado=? WHERE nombreMateria LIKE ?";
         
         try {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setBoolean(1, false);
-            //ps.setString(1, "nuevoNombre");
-            //ps.setInt(1, nuevoAnio);
+            ps.setString(2, nombreMateria);
+
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "El estado de la materia ha sido actualizada");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");
-        }    
-    }    
+        }
+    }
+    
+    public void eliminarMateria(String nombre){
+    
+
+        String sql="DELETE FROM materia WHERE nombreMateria LIKE ?";
+        
+        try {
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "La materia ha sido eliminada");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error. La materia se encuentra vinculada");
+        } catch (Exception e){
+          JOptionPane.showMessageDialog(null, "Error");
+        }
+        
+    }
+    
     
 }

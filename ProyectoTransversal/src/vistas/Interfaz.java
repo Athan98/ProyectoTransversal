@@ -5,10 +5,10 @@
  */
 package vistas;
 
-/**
- *
- * @author diego
- */
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 public class Interfaz extends javax.swing.JFrame {
 
     /**
@@ -16,6 +16,7 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -27,7 +28,13 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/images/fondoEscritorio.jpg"));
+        Image image = icon.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);}
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jmAlumno = new javax.swing.JMenu();
         jmFormularioAlum = new javax.swing.JMenuItem();
@@ -35,7 +42,6 @@ public class Interfaz extends javax.swing.JFrame {
         jmFormMateria = new javax.swing.JMenuItem();
         jmAdm = new javax.swing.JMenu();
         jmInscripciones = new javax.swing.JMenuItem();
-        jmNotas = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jmAlumnosXMat = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
@@ -69,6 +75,11 @@ public class Interfaz extends javax.swing.JFrame {
         jmMateria.setText("Materia");
 
         jmFormMateria.setText("Formulario Materia");
+        jmFormMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFormMateriaActionPerformed(evt);
+            }
+        });
         jmMateria.add(jmFormMateria);
 
         jMenuBar1.add(jmMateria);
@@ -76,10 +87,12 @@ public class Interfaz extends javax.swing.JFrame {
         jmAdm.setText("Administracion");
 
         jmInscripciones.setText("Manejo de Inscripciones");
+        jmInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmInscripcionesActionPerformed(evt);
+            }
+        });
         jmAdm.add(jmInscripciones);
-
-        jmNotas.setText("Manipulacion de Notas");
-        jmAdm.add(jmNotas);
 
         jMenuBar1.add(jmAdm);
 
@@ -121,6 +134,35 @@ public class Interfaz extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jmFormularioAlumActionPerformed
 
+
+    private void jmInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInscripcionesActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionInscripcion gi = new GestionInscripcion();
+        gi.setVisible(true);
+        escritorio.add(gi);
+        escritorio.moveToFront(gi);
+    }//GEN-LAST:event_jmInscripcionesActionPerformed
+
+    private void jmFormMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFormMateriaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionMateria gm=new GestionMateria();
+        gm.setVisible(true);
+        escritorio.add(gm);
+        escritorio.moveToFront(gm);
+    }//GEN-LAST:event_jmFormMateriaActionPerformed
+
+    private void jmNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNotasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        ManipulacionNotas mn = new ManipulacionNotas();
+        mn.setVisible(true);
+        escritorio.add(mn);
+        escritorio.moveToFront(mn);
+    }//GEN-LAST:event_jmNotasActionPerformed
+
+
     /**
      * @param args the command line arguments
      */
@@ -157,7 +199,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jmAdm;
     private javax.swing.JMenu jmAlumno;
@@ -167,7 +209,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmFormularioAlum;
     private javax.swing.JMenuItem jmInscripciones;
     private javax.swing.JMenu jmMateria;
-    private javax.swing.JMenuItem jmNotas;
     private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }

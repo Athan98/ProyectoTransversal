@@ -23,7 +23,11 @@
 hs_err_pid*
 replay_pid*
 *.properties
-./ProyectoTransversal/nbproject/private/private.properties
+
 ProyectoTransversal/nbproject/private/*.properties
 ProyectoTransversal/nbproject/*.properties
 ProyectoTransversal/nbproject/private/private.properties
+
+*.properties
+*.xml
+*.xml

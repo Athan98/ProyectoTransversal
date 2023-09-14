@@ -120,16 +120,16 @@ public class Alumno_data {
     }
 
     public void modificarAlumno(int dni, String apellido, String nombre, LocalDate fechaNac, boolean estado) {
-        String sql = "UPDATE alumno SET dni=?,apellido=?,nombre=?,fechaNac=?,estado=? WHERE dni=?";
+        String sql = "UPDATE alumno SET apellido=?,nombre=?,fechaNac=?,estado=? WHERE dni=?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, dni);
-            ps.setString(2, apellido);
-            ps.setString(3, nombre);
-            ps.setDate(4, Date.valueOf(fechaNac));
-            ps.setBoolean(5, estado);
-            ps.setInt(6, dni);
+            
+            ps.setString(1, apellido);
+            ps.setString(2, nombre);
+            ps.setDate(3, Date.valueOf(fechaNac));
+            ps.setBoolean(4, estado);
+            ps.setInt(5, dni);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Los datos del alumno han sido actualizados");
             ps.close();
@@ -147,7 +147,7 @@ public class Alumno_data {
             PreparedStatement ps=conexion.prepareStatement(sql);
             ps.setInt(1, dni);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "El alumno ha sido eliminado");
+            
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de sentencia");

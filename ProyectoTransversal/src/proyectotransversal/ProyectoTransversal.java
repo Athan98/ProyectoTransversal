@@ -32,8 +32,9 @@ public class ProyectoTransversal {
         Conexion con=new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal","root","");
         Alumno_data ad=new Alumno_data(con);
         Materia_data md=new Materia_data(con);
+        Inscripcion_data id=new Inscripcion_data(con);
         Alumno alumno=new Alumno(41339109,"Roldan","Nicolas",LocalDate.of(1998, 10, 26),true);
-        ad.agregarAlumno(alumno);
+        //ad.agregarAlumno(alumno);
 //        ad.modificarEstadoAlumno(41339109, true);
 //        PRUEBA LISTAR
         Alumno alumno2=new Alumno(13467088,"Rodriguez","Ignacio",LocalDate.of(1958, 7, 26),true);
@@ -45,11 +46,10 @@ public class ProyectoTransversal {
 //        List<Alumno>alumnos=ad.listarAlumnosPorApellido("R");
 //        for(Alumno a:alumnos){
 //            System.out.println(a.toString());
-//        }
-//        
+//        }        
 //        System.out.println(ad.buscarAlumnoPorDni(41339109));
-
-         Inscripcion_data id=new Inscripcion_data(con);
+            System.out.println(id.listarMateriasNOCursadasPorAlumno(41339109));
+         
 //         System.out.println(id.listarInscripciones());
 //         System.out.println(id.listarInscripcionesPorAlumno(39993976));
 //         System.out.println(id.listarMateriasNOCursadasPorAlumno(39993976));
