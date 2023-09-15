@@ -8,6 +8,7 @@ package vistas;
 import data.*;
 import entidades.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import sun.security.action.GetBooleanSecurityPropertyAction;
@@ -225,7 +226,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         Alumno a = new Alumno();
 
         try {
-            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty()) {
+            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate()==null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now())))  {
                 JOptionPane.showMessageDialog(this, "Por favor complete todos los campos");
             } else {
                 a.setEstado(jrbEstado.isSelected());    //Ojo restriccion numeros.
@@ -237,6 +238,10 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
                 ad.agregarAlumno(a);
                 JOptionPane.showMessageDialog(this, "Alumno agregado");
+                jtApellido.setText("");
+                jtDni.setText("");
+                jtNombre.setText("");
+                jdCalendar.setDate(null);
             }
         } catch (NullPointerException | NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Complete correctamente los campos.");
@@ -262,6 +267,10 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         try{
             //Ojo restricion numeros
             ad.modificarAlumno(Integer.parseInt(jtDni.getText()), jtApellido.getText(), jtNombre.getText(), jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jrbEstado.isSelected());
+            jtApellido.setText("");
+            jtDni.setText("");
+            jtNombre.setText("");
+            jdCalendar.setDate(null);
         }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");
         }catch (NullPointerException e){
