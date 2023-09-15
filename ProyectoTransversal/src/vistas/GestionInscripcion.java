@@ -251,7 +251,12 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jrbMatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatiActionPerformed
-        jrbMatni.setSelected(false);        
+        jrbMatni.setSelected(false);
+        jbInscribir.setEnabled(false);
+        if (jbDesinscribir.isEnabled() == false) {
+            jbDesinscribir.setEnabled(true);
+        }
+        
         List<Inscripcion> listamat = new ArrayList<>();
         
         listamat = id.listarInscripcionesPorAlumno(a.getDni());        
@@ -270,6 +275,11 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
 
     private void jrbMatniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatniActionPerformed
         jrbMati.setSelected(false);
+        jbDesinscribir.setEnabled(false);
+        if (jbInscribir.isEnabled() == false) {
+            jbInscribir.setEnabled(true);
+        }
+        
         List<Materia> listamat = new ArrayList<>();
         
         listamat = id.listarMateriasNOCursadasPorAlumno(Integer.parseInt(jtDni.getText()));        
