@@ -9,7 +9,6 @@ import data.*;
 import entidades.*;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Stefano
@@ -18,7 +17,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
     private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal", "root", "");
     private Materia_data md = new Materia_data(con);
-    
+
     public GestionMateria() {
         initComponents();
     }
@@ -198,19 +197,19 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 jtCodigo.setText("");
                 jrEstado.setSelected(false);
             } else {
-                
+
                 jtNombre.setText(m.getNombre());
                 jtCodigo.setText(m.getId_materia() + "");
                 jtAño.setText(m.getAnio() + "");
                 jrEstado.setSelected(m.isEstado());
             }
-            
+
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la materia");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error");
         }
-        
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
@@ -239,42 +238,46 @@ public class GestionMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        
-        try{
-            if(jtNombre.getText().isEmpty()){
+
+        try {
+            if (jtNombre.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la materia");
-            }else{
+            } else {
                 md.eliminarMateria(jtNombre.getText());
                 jtNombre.setText("");
                 jtAño.setText("");
                 jtCodigo.setText("");
                 jrEstado.setSelected(false);
             }
-        
-        }catch(NullPointerException e){
+
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la materia");
-        }catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error");
         }
-        
+
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        
+
         Interfaz.escritorio.removeAll();
         Interfaz.escritorio.repaint();
-                
+
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        
-        try{
-        md.modificarMateria(jtNombre.getText(), Integer.parseInt(jtAño.getText()) , jrEstado.isSelected());
-        JOptionPane.showMessageDialog(this, "La materia ha sido modificada");
-        }catch (NumberFormatException | NullPointerException e){
-            JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");}
-     
-        
+
+        try {
+            md.modificarMateria(jtNombre.getText(), Integer.parseInt(jtAño.getText()), jrEstado.isSelected());
+            jtNombre.setText("");
+            jtAño.setText("");
+            jtCodigo.setText("");
+            jrEstado.setSelected(false);
+        } catch (NumberFormatException | NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");
+        }
+
+
     }//GEN-LAST:event_jbGuardarActionPerformed
 
 
