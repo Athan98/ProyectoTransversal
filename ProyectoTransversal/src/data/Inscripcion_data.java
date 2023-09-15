@@ -20,12 +20,15 @@ public class Inscripcion_data {
         this.conexion = con.buscarConexion();
     }
 
-    public void inscribirAlumno(Alumno alumno, Materia materia, Inscripcion inscripcion) {
+    public void inscribirAlumno(Alumno alumno, Materia materia) {
+        Inscripcion inscripcion = new Inscripcion();
+        
         String sql = "INSERT INTO inscripcion(nota,id_alumno,id_materia) VALUES (?,?,?)";
+        
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, inscripcion.getNota());
+            ps.setInt(1, 0);
             ps.setInt(2, alumno.getId_alumno());
             ps.setInt(3, materia.getId_materia());
             ps.executeUpdate();

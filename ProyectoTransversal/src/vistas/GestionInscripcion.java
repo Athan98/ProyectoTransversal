@@ -22,6 +22,7 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     private Alumno_data ad = new Alumno_data(con);
     private Materia_data md = new Materia_data(con);
     private Inscripcion_data id = new Inscripcion_data(con);
+    private Alumno a = new Alumno();
     
     
     
@@ -132,6 +133,11 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtListamat);
 
         jbInscribir.setText("Inscribir");
+        jbInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInscribirActionPerformed(evt);
+            }
+        });
 
         jbDesinscribir.setText("Anular Inscripcion");
         jbDesinscribir.addActionListener(new java.awt.event.ActionListener() {
@@ -230,8 +236,7 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-
-        Alumno a = new Alumno();
+        
         try {
             a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDni.getText()));
             if (a == null) {
@@ -249,7 +254,7 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jrbMatni.setSelected(false);        
         List<Inscripcion> listamat = new ArrayList<>();
         
-        listamat = id.listarInscripcionesPorAlumno(Integer.parseInt(jtDni.getText()));        
+        listamat = id.listarInscripcionesPorAlumno(a.getDni());        
         
         
         //MODIFICACION DE TABLA
@@ -285,6 +290,13 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
             
         id.eliminarInscripcion(Integer.parseInt(jtDni.getText()),mat);
     }//GEN-LAST:event_jbDesinscribirActionPerformed
+
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
+        String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
+        Materia materia = md.buscarMateria(mat);
+        
+        id.inscribirAlumno(a, materia);
+    }//GEN-LAST:event_jbInscribirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
