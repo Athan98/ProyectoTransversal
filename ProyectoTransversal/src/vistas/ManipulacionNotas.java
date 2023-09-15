@@ -8,27 +8,31 @@ package vistas;
 import data.*;
 import entidades.*;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ManipulacionNotas extends javax.swing.JInternalFrame {
-     private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal", "root", "");
-     private Alumno_data ad = new Alumno_data(con);
-     private Inscripcion_data id = new Inscripcion_data(con);
-     
-     private DefaultTableModel modelo = new DefaultTableModel(){
-        public boolean isCellEditable(int fila, int col){
-            return false;
+
+    private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal", "root", "");
+    private Alumno_data ad = new Alumno_data(con);
+    private Inscripcion_data id = new Inscripcion_data(con);
+    private Alumno seleccionar = new Alumno();
+
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int fila, int col) {
+            if (col == 2) {
+                return true;
+            } else {
+                return false;
+            }
         }
     };
 
-    
-    
     public ManipulacionNotas() {
         initComponents();
         cargarComboBox();
         cargarCabecera();
-        
+
     }
 
     /**
@@ -89,8 +93,18 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTabla);
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,23 +160,44 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbAlumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlumnosItemStateChanged
-       
-         modelo.setRowCount(0);
-        String x = jcbAlumnos.getItemAt(jcbAlumnos.getSelectedIndex());
-        String[] dni = x.split(",",2);
-        
-        
-        List<Inscripcion> ins =  id.listarInscripcionesPorAlumno(Integer.parseInt(dni[0]));
-        for (Inscripcion inscripcion: ins) {
-            modelo.addRow(new Object[]{
-                inscripcion.getId_materia().getId_materia(),
-                inscripcion.getId_materia().getNombre(),
-                inscripcion.getNota()
-                    
-            });
-            
+
+        borrarFilas(modelo);
+        Alumno a = (Alumno) jcbAlumnos.getSelectedItem();
+
+        List<Inscripcion> ins = id.listarInscripcionesPorAlumno(a.getDni());
+
+        for (Inscripcion inscripcion : ins) {
+            if (inscripcion.getId_alumno().getApellido().equals(a.getApellido())) {
+                modelo.addRow(new Object[]{
+                    inscripcion.getId_materia().getId_materia(),
+                    inscripcion.getId_materia().getNombre(),
+                    inscripcion.getNota()
+
+                });
+
+            }
+
         }
+
+
     }//GEN-LAST:event_jcbAlumnosItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Alumno a = jcbAlumnos.getItemAt(jcbAlumnos.getSelectedIndex());
+        for (int i = 0; i <= modelo.getRowCount() - 1; i++) {
+            id.calificarAlumno(Integer.parseInt(modelo.getValueAt(i, 2).toString()), a.getDni(),
+                    modelo.getValueAt(i, 1).toString());
+        }
+        JOptionPane.showMessageDialog(this, "La nota ha sido cargada con exito");
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        Interfaz.escritorio.removeAll();
+        Interfaz.escritorio.repaint();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -173,29 +208,35 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTabla;
-    private javax.swing.JComboBox<String> jcbAlumnos;
+    private javax.swing.JComboBox<Alumno> jcbAlumnos;
     // End of variables declaration//GEN-END:variables
-public void cargarCabecera(){
-    modelo.addColumn("Codigo");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Nota");
-    jTabla.setModel(modelo);
-}
 
-public void cargarComboBox(){
-    jcbAlumnos.removeAllItems();
-   
-    List<Alumno> a = ad.listarAlumnos();
-    for (Alumno alumno : a) {
-        jcbAlumnos.addItem(alumno.toString());
-        
+    public void cargarCabecera() {
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nota");
+        jTabla.setModel(modelo);
     }
-    
+
+    public void cargarComboBox() {
+
+        List<Alumno> a = ad.listarAlumnos();
+
+        jcbAlumnos.addItem(seleccionar);
+
+        for (int i = 0; i < a.size(); i++) {
+
+            jcbAlumnos.addItem(a.get(i));
+
+        }
+    }
+
+    private void borrarFilas(DefaultTableModel modelo) {
+        int f = modelo.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+
+    }
+
 }
-
-
-}
-
-
-
-

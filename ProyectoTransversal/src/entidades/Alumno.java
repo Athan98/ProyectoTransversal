@@ -34,6 +34,11 @@ public class Alumno {
         this.id_alumno=-1;
     }
 
+    public Alumno(String apellido) {
+        this.apellido = apellido;
+    }
+
+    
     public int getId_alumno() {
         return id_alumno;
     }
@@ -84,8 +89,15 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return dni+","+apellido+" "+nombre;
+        if(dni!=0){
+        return dni+","+apellido+" "+nombre;}
+        else{
+        return "Seleccione un alumno";}
     }
+    
+    
+    
+    
     
     
 }

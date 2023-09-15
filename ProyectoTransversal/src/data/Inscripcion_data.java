@@ -57,7 +57,6 @@ public class Inscripcion_data {
             ps.setInt(2, dni);
             ps.setString(3, nombreMateria);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "La nota ha sido cargada con exito");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error, sentencia invalida");
