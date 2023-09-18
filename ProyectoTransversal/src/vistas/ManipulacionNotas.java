@@ -162,7 +162,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     private void jcbAlumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlumnosItemStateChanged
 
         borrarFilas(modelo);
-        Alumno a = (Alumno) jcbAlumnos.getSelectedItem();
+        Alumno a =(Alumno) jcbAlumnos.getSelectedItem();
 
         List<Inscripcion> ins = id.listarInscripcionesPorAlumno(a.getDni());
 

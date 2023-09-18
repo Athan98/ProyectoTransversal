@@ -124,7 +124,7 @@ public class Inscripcion_data {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de sentencia");
+            JOptionPane.showMessageDialog(null, "Error de sentencia XD");
         }
         return inscripcionesList;
     }
@@ -166,7 +166,7 @@ public class Inscripcion_data {
                 materia.setId_materia(rs.getInt("id_materia"));
                 materia.setNombre(rs.getString("nombreMateria"));
                 materia.setAnio(rs.getInt("anio"));
-                materia.setEstado(rs.getBoolean("estado"));
+                materia.setEstado(rs.getBoolean("estado")); 
                 materiasList.add(materia);
             }
             ps.close();
