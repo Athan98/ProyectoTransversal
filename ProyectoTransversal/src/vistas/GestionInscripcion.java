@@ -92,16 +92,16 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jLabel2.setText("Listado de materias");
 
         jrbMati.setText("Materias Inscriptas");
-        jrbMati.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbMatiActionPerformed(evt);
+        jrbMati.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jrbMatiItemStateChanged(evt);
             }
         });
 
         jrbMatni.setText("Materias no Inscriptas");
-        jrbMatni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbMatniActionPerformed(evt);
+        jrbMatni.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jrbMatniItemStateChanged(evt);
             }
         });
 
@@ -243,6 +243,7 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No hay ningun alumno con ese DNI.");
             } else {                
                 jlAlumno.setText(a.getApellido()+ " " +a.getNombre());
+                jrbMati.setSelected(true);
             }
         } catch (NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Ingrese el DNI correctamente.");
@@ -250,7 +251,20 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jbBuscarActionPerformed
 
-    private void jrbMatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatiActionPerformed
+    private void jbDesinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDesinscribirActionPerformed
+        String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
+            
+        id.eliminarInscripcion(Integer.parseInt(jtDni.getText()),mat);
+    }//GEN-LAST:event_jbDesinscribirActionPerformed
+
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
+        String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
+        Materia materia = md.buscarMateria(mat);
+        
+        id.inscribirAlumno(a, materia);
+    }//GEN-LAST:event_jbInscribirActionPerformed
+
+    private void jrbMatiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbMatiItemStateChanged
         jrbMatni.setSelected(false);
         jbInscribir.setEnabled(false);
         if (jbDesinscribir.isEnabled() == false) {
@@ -270,10 +284,9 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 insc.getId_materia().getAnio()
             });                   
         }        
-        
-    }//GEN-LAST:event_jrbMatiActionPerformed
+    }//GEN-LAST:event_jrbMatiItemStateChanged
 
-    private void jrbMatniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMatniActionPerformed
+    private void jrbMatniItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbMatniItemStateChanged
         jrbMati.setSelected(false);
         jbDesinscribir.setEnabled(false);
         if (jbInscribir.isEnabled() == false) {
@@ -292,21 +305,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
                 mat.getNombre(),
                 mat.getAnio()
             });                   
-        }       
-    }//GEN-LAST:event_jrbMatniActionPerformed
-
-    private void jbDesinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDesinscribirActionPerformed
-        String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
-            
-        id.eliminarInscripcion(Integer.parseInt(jtDni.getText()),mat);
-    }//GEN-LAST:event_jbDesinscribirActionPerformed
-
-    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
-        String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
-        Materia materia = md.buscarMateria(mat);
-        
-        id.inscribirAlumno(a, materia);
-    }//GEN-LAST:event_jbInscribirActionPerformed
+        }
+    }//GEN-LAST:event_jrbMatniItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
