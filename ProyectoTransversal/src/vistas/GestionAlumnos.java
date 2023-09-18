@@ -24,6 +24,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     public GestionAlumnos() {
         initComponents();
+        jbGuardar.setEnabled(false);
+        jbEliminar.setEnabled(false);
         
     }
 
@@ -208,6 +210,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             if (a == null) {
                 JOptionPane.showMessageDialog(this, "No hay ningun alumno con ese DNI.");
             } else {
+                jbGuardar.setEnabled(true);
+                jbEliminar.setEnabled(true);
+                
                 jtApellido.setText(a.getApellido());
                 jtNombre.setText(a.getNombre());
                 jrbEstado.setSelected(a.isEstado());
