@@ -224,12 +224,14 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         Alumno a = new Alumno();
-
+        
+        
         try {
             if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate()==null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now())))  {
                 JOptionPane.showMessageDialog(this, "Por favor complete todos los campos");
             } else {
                 a.setEstado(jrbEstado.isSelected());    //Ojo restriccion numeros.
+             
                 a.setApellido(jtApellido.getText());
                 a.setDni(Integer.parseInt(jtDni.getText()));
                 a.setNombre(jtNombre.getText());
@@ -307,4 +309,14 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtDni;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
+
+    /* Restricion TexField */
+    
+// public boolean revisarString(String x){
+//     for(int i = 0 ; i<=x.length()-1 ; i++){
+//         if(x.substring(i,i+1) >= 65 || x.substring(i,i+1)<= 90){
+//             
+//         }
+//     }
+// }
 }
