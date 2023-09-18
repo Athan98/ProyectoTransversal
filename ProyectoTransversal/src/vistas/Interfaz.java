@@ -108,6 +108,11 @@ public class Interfaz extends javax.swing.JFrame {
         jmConsultas.setText("Consultas");
 
         jmAlumnosXMat.setText("Alumnos por Materia");
+        jmAlumnosXMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAlumnosXMatActionPerformed(evt);
+            }
+        });
         jmConsultas.add(jmAlumnosXMat);
 
         jMenuBar1.add(jmConsultas);
@@ -170,6 +175,15 @@ public class Interfaz extends javax.swing.JFrame {
         escritorio.add(mn);
         escritorio.moveToFront(mn);
     }//GEN-LAST:event_jmNotasActionPerformed
+
+    private void jmAlumnosXMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlumnosXMatActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        ConsultaAlumno gi = new ConsultaAlumno();
+        gi.setVisible(true);
+        escritorio.add(gi);
+        escritorio.moveToFront(gi);        // TODO add your handling code here:
+    }//GEN-LAST:event_jmAlumnosXMatActionPerformed
 
 
     /**

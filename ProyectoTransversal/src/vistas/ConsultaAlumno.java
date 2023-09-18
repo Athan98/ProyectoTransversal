@@ -5,6 +5,11 @@
  */
 package vistas;
 
+import data.Alumno_data;
+import data.Conexion;
+import data.Inscripcion_data;
+import entidades.*;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,15 +17,23 @@ import javax.swing.table.DefaultTableModel;
  * @author Lucas
  */
 public class ConsultaAlumno extends javax.swing.JInternalFrame {
-    private DefaultTableModel modelo = new DefaultTableModel(){
-        public boolean isCellEditable(int fila, int col){
+
+    private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal", "root", "");
+    private Alumno_data ad = new Alumno_data(con);
+    private Inscripcion_data id = new Inscripcion_data(con);
+    private Materia seleccionar = new Materia();
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int fila, int col) {
             return false;
         }
-    /**
-     * Creates new form ConsultaAlumno
-     */
+    };
+            /**
+             * Creates new form ConsultaAlumno
+             */
+
     public ConsultaAlumno() {
         initComponents();
+        cargarCombo();
         cargarCabeceraLista();
     }
 
@@ -37,7 +50,7 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jcbAlumno = new javax.swing.JComboBox<>();
+        jcbMateria = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -60,17 +73,16 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTabla);
 
-        jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jcbAlumno.setSelectedIndex(-1);
-        jcbAlumno.setToolTipText("");
-        jcbAlumno.addItemListener(new java.awt.event.ItemListener() {
+        jcbMateria.setSelectedIndex(-1);
+        jcbMateria.setToolTipText("");
+        jcbMateria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcbAlumnoItemStateChanged(evt);
+                jcbMateriaItemStateChanged(evt);
             }
         });
-        jcbAlumno.addActionListener(new java.awt.event.ActionListener() {
+        jcbMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbAlumnoActionPerformed(evt);
+                jcbMateriaActionPerformed(evt);
             }
         });
 
@@ -90,7 +102,7 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(80, 80, 80))
         );
         jPanel1Layout.setVerticalGroup(
@@ -100,7 +112,7 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
@@ -136,25 +148,31 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
+    private void jcbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriaActionPerformed
         // TODO add younbg code here:
-    }//GEN-LAST:event_jcbAlumnoActionPerformed
+    }//GEN-LAST:event_jcbMateriaActionPerformed
 
-    private void jcbAlumnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlumnoItemStateChanged
-        modelo.setRowCount(0);
-        for(Producto produ:Interfaz.listaprod){
-            if(produ.getRubro().equals(jcbCateg.getSelectedItem())){
+    private void jcbMateriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbMateriaItemStateChanged
+
+        borrarFilas(modelo);
+        Alumno a = (Alumno) jcbMateria.getSelectedItem();
+
+        List<Inscripcion> ins = id.listarInscripcionesPorAlumno(a.getDni());
+
+        for (Inscripcion inscripcion : ins) {
+            if (inscripcion.getId_alumno().getApellido().equals(a.getApellido())) {
                 modelo.addRow(new Object[]{
-                    produ.getCodigo(),
-                    produ.getDescripcion(),
-                    produ.getPrecio(),
-                    produ.getStock(),
+                    inscripcion.getId_materia().getId_materia(),
+                    inscripcion.getId_materia().getNombre(),
+                    inscripcion.getNota()
+
                 });
+
             }
+
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAlumnoItemStateChanged
-
+    }//GEN-LAST:event_jcbMateriaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -164,21 +182,36 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<alumno> jcbAlumno;
+    private javax.swing.JComboBox<Materia> jcbMateria;
     // End of variables declaration//GEN-END:variables
-}
 
-    public void cargarCabeceraLista(){
+
+public void cargarCabeceraLista(){
         modelo.addColumn("ID");
         modelo.addColumn("DNI");
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");
+        jTabla.setModel(modelo);
     }
     
     public void cargarCombo(){
-        List<Alumno> a =ad.listarAlumno();
-        jcbAlumno.addItem(alumno.get.COMESTIBLE);
-        jcbCateg.addItem(Categoria.LIMPIEZA);
-        jcbCateg.addItem(Categoria.PERFUMERIA);
-        jcbAlumno.setSelectedIndex(-1);
+        
+        Materia Mat = (Materia) jcbMateria.getSelectedItem();
+        List<Materia> a = id.listarAlumnosPorMateria(Mat.getNombre());
+        jcbMateria.addItem(seleccionar);
+
+        for (int i = 0; i < a.size(); i++) {
+
+            jcbMateria.addItem(a.get(i));
+
+        }
     }
+    
+    private void borrarFilas(DefaultTableModel modelo) {
+        int f = modelo.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+
+    }
+}
