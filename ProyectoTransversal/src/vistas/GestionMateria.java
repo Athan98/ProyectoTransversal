@@ -20,6 +20,9 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
     public GestionMateria() {
         initComponents();
+        jbGuardar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        
     }
 
     /**
@@ -202,6 +205,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 jtCodigo.setText(m.getId_materia() + "");
                 jtAño.setText(m.getAnio() + "");
                 jrEstado.setSelected(m.isEstado());
+                jbGuardar.setEnabled(true);
+                jbEliminar.setEnabled(true);
             }
 
         } catch (NullPointerException e) {
@@ -230,6 +235,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 jtAño.setText("");
                 jtCodigo.setText("");
                 jrEstado.setSelected(false);
+                jbGuardar.setEnabled(false);
+                jbEliminar.setEnabled(false);
             }
         } catch (NullPointerException | NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Complete correctamente los campos.");
@@ -248,6 +255,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 jtAño.setText("");
                 jtCodigo.setText("");
                 jrEstado.setSelected(false);
+                jbGuardar.setEnabled(false);
+                jbEliminar.setEnabled(false);
             }
 
         } catch (NullPointerException e) {
@@ -273,6 +282,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
             jtAño.setText("");
             jtCodigo.setText("");
             jrEstado.setSelected(false);
+            jbGuardar.setEnabled(false);
+            jbEliminar.setEnabled(false);
         } catch (NumberFormatException | NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");
         }
