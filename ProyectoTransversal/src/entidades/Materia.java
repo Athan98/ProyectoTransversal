@@ -15,6 +15,10 @@ public class Materia {
         this.estado = estado;
     }
 
+    public Materia(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Materia(String nombre, int anio, boolean estado) {
         this.nombre = nombre;
         this.anio = anio;
@@ -56,11 +60,15 @@ public class Materia {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
 
     @Override
     public String toString() {
-        return nombre + ", Año: " + anio + ", Estado: "+estado;
+        if (id_materia!=-1){
+            return nombre + ", Año: " + anio + ", Estado: "+estado;
+        }
+        else{
+        return "Seleccione materia";}
     }
-    
     
 }

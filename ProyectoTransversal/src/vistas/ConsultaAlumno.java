@@ -7,6 +7,7 @@ package vistas;
 
 import data.Alumno_data;
 import data.Conexion;
+import data.Materia_data;
 import data.Inscripcion_data;
 import entidades.*;
 import java.util.List;
@@ -21,6 +22,7 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
     private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/proyecto_transversal", "root", "");
     private Alumno_data ad = new Alumno_data(con);
     private Inscripcion_data id = new Inscripcion_data(con);
+    private Materia_data md = new Materia_data(con);
     private Materia seleccionar = new Materia();
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int col) {
@@ -34,6 +36,7 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
     public ConsultaAlumno() {
         initComponents();
         cargarCombo();
+        
         cargarCabeceraLista();
     }
 
@@ -150,21 +153,19 @@ public class ConsultaAlumno extends javax.swing.JInternalFrame {
     private void jcbMateriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbMateriaItemStateChanged
 
         borrarFilas(modelo);
-        Alumno a = (Alumno) jcbMateria.getSelectedItem();
+        Materia m = (Materia) jcbMateria.getSelectedItem();
+       
 
-        List<Inscripcion> ins = id.listarInscripcionesPorAlumno(a.getDni());
+        List<Alumno> ins = id.listarAlumnosPorMateria(m.getNombre());
 
-        for (Inscripcion inscripcion : ins) {
-            if (inscripcion.getId_alumno().getApellido().equals(a.getApellido())) {
-                modelo.addRow(new Object[]{
-                    inscripcion.getId_materia().getId_materia(),
-                    inscripcion.getId_materia().getNombre(),
-                    inscripcion.getNota()
-
+        for (Alumno alumno : ins) {
+           
+            modelo.addRow(new Object[]{
+                    alumno.getId_alumno(),
+                    alumno.getDni(),
+                    alumno.getApellido(),
+                    alumno.getNombre(),
                 });
-
-            }
-
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbMateriaItemStateChanged
@@ -189,15 +190,10 @@ public void cargarCabeceraLista(){
     }
     
     public void cargarCombo(){
-        
-        Materia Mat = (Materia) jcbMateria.getSelectedItem();
-        List<Materia> a = id.listarAlumnosPorMateria(Mat.getNombre());
+        List<Materia> a = md.listarMaterias();
         jcbMateria.addItem(seleccionar);
-
         for (int i = 0; i < a.size(); i++) {
-
             jcbMateria.addItem(a.get(i));
-
         }
     }
     
