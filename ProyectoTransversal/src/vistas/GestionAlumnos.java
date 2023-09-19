@@ -58,7 +58,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jdCalendar = new com.toedter.calendar.JDateChooser();
 
-        setBackground(new java.awt.Color(153, 255, 153));
+        setBackground(new java.awt.Color(0, 51, 51));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
