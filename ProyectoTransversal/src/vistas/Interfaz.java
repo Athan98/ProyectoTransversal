@@ -142,10 +142,7 @@ public class Interfaz extends javax.swing.JFrame {
         GestionAlumnos gt = new GestionAlumnos();
         gt.setVisible(true);
         escritorio.add(gt);
-        escritorio.moveToFront(gt);
-        
-        
-         
+        escritorio.moveToFront(gt);    
     }//GEN-LAST:event_jmFormularioAlumActionPerformed
 
 

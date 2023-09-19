@@ -255,6 +255,8 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         String mat = modelo.getValueAt(jtListamat.getSelectedRow(), 0).toString();
             
         id.eliminarInscripcion(Integer.parseInt(jtDni.getText()),mat);
+        cargarListaMI();
+        
     }//GEN-LAST:event_jbDesinscribirActionPerformed
 
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
@@ -262,50 +264,40 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         Materia materia = md.buscarMateria(mat);
         
         id.inscribirAlumno(a, materia);
+        cargarListaMNI();
     }//GEN-LAST:event_jbInscribirActionPerformed
 
     private void jrbMatiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbMatiItemStateChanged
-        jrbMatni.setSelected(false);
-        jbInscribir.setEnabled(false);
-        if (jbDesinscribir.isEnabled() == false) {
+        
+        if (jrbMati.isSelected()) {
+            jrbMatni.setSelected(false);
+            jbInscribir.setEnabled(false);
             jbDesinscribir.setEnabled(true);
+            
+            cargarListaMI();               
+        }
+        if (jrbMati.isSelected() == false){
+            jrbMatni.setSelected(true);
+            
         }
         
-        List<Inscripcion> listamat = new ArrayList<>();
-        
-        listamat = id.listarInscripcionesPorAlumno(a.getDni());        
-        
-        
-        //MODIFICACION DE TABLA
-        modelo.setRowCount(0); //borra la tabla
-        for(Inscripcion insc:listamat){//carga la tabla                              
-            modelo.addRow(new Object[]{
-                insc.getId_materia().getNombre(),
-                insc.getId_materia().getAnio()
-            });                   
-        }        
+             
     }//GEN-LAST:event_jrbMatiItemStateChanged
 
     private void jrbMatniItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbMatniItemStateChanged
-        jrbMati.setSelected(false);
-        jbDesinscribir.setEnabled(false);
-        if (jbInscribir.isEnabled() == false) {
+        
+        if (jrbMatni.isSelected()) {
+            jrbMati.setSelected(false);
+            jbDesinscribir.setEnabled(false);
             jbInscribir.setEnabled(true);
+            
+            cargarListaMNI();
         }
+        if (jrbMatni.isSelected() == false){
+            jrbMati.setSelected(true);
+            
+        }       
         
-        List<Materia> listamat = new ArrayList<>();
-        
-        listamat = id.listarMateriasNOCursadasPorAlumno(Integer.parseInt(jtDni.getText()));        
-        
-        
-        //MODIFICACION DE TABLA
-        modelo.setRowCount(0); //borra la tabla
-        for(Materia mat:listamat){//carga la tabla                              
-            modelo.addRow(new Object[]{
-                mat.getNombre(),
-                mat.getAnio()
-            });                   
-        }
     }//GEN-LAST:event_jrbMatniItemStateChanged
 
 
@@ -335,6 +327,36 @@ public class GestionInscripcion extends javax.swing.JInternalFrame {
         jtListamat.setModel(modelo);
     }
     
+    public void cargarListaMI(){
+        List<Inscripcion> listamat = new ArrayList<>();
+        
+        listamat = id.listarInscripcionesPorAlumno(a.getDni());        
+        
+        
+        //MODIFICACION DE TABLA
+        modelo.setRowCount(0); //borra la tabla
+        for(Inscripcion insc:listamat){//carga la tabla                              
+            modelo.addRow(new Object[]{
+                insc.getId_materia().getNombre(),
+                insc.getId_materia().getAnio()
+            });                   
+        }   
+    }
+    
+    public void cargarListaMNI(){
+        List<Materia> listamat = new ArrayList<>();
+
+        listamat = id.listarMateriasNOCursadasPorAlumno(Integer.parseInt(jtDni.getText()));
+
+        //MODIFICACION DE TABLA
+        modelo.setRowCount(0); //borra la tabla
+        for (Materia mat : listamat) {//carga la tabla                              
+            modelo.addRow(new Object[]{
+                mat.getNombre(),
+                mat.getAnio()
+            });
+        }
+    }
     
 
 }
