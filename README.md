@@ -1,2 +1,2 @@
 # ProyectoTransversal
-Alumnos: Diego Pontalti, Stefano Donnini, Roldan Nicolas, Alumno Lucas Della Santina
+Alumnos: Diego Pontalti, Stefano Donnini, Roldan Nicolas, Lucas Della Santina
