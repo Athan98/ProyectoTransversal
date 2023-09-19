@@ -45,7 +45,6 @@ public class Interfaz extends javax.swing.JFrame {
         jmNotas = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jmAlumnosXMat = new javax.swing.JMenuItem();
-        jmSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administracion");
@@ -116,9 +115,6 @@ public class Interfaz extends javax.swing.JFrame {
         jmConsultas.add(jmAlumnosXMat);
 
         jMenuBar1.add(jmConsultas);
-
-        jmSalir.setText("Salir");
-        jMenuBar1.add(jmSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -230,6 +226,5 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmInscripciones;
     private javax.swing.JMenu jmMateria;
     private javax.swing.JMenuItem jmNotas;
-    private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }
