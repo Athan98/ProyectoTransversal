@@ -47,7 +47,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
-        jbSalir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
@@ -96,13 +95,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,9 +126,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                                         .addComponent(jbEliminar)
                                         .addGap(18, 18, 18)
                                         .addComponent(jbGuardar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                                        .addComponent(jbSalir)
-                                        .addGap(14, 14, 14))
+                                        .addGap(14, 158, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,8 +171,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
                     .addComponent(jbNuevo)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbSalir))
+                    .addComponent(jbEliminar))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -267,13 +256,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jbEliminarActionPerformed
 
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-
-        Interfaz.escritorio.removeAll();
-        Interfaz.escritorio.repaint();
-
-    }//GEN-LAST:event_jbSalirActionPerformed
-
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
 
         try {
@@ -303,7 +285,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
-    private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtAño;
     private javax.swing.JTextField jtCodigo;
