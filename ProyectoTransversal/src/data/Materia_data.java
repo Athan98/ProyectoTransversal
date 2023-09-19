@@ -24,6 +24,32 @@ public class Materia_data {
         
     }
     
+    public List listarMaterias(){
+        List  <Materia> materiaList = new ArrayList<>();
+        String  sql="SELECT * FROM materia ";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Materia materia = new Materia();
+                materia.setId_materia(rs.getInt("id_materia"));
+                materia.setNombre(rs.getString("nombreMateria"));
+                materia.setEstado(rs.getBoolean("estado"));
+                materia.setAnio(rs.getInt("anio"));
+                materiaList.add(materia);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de sentencia");
+        }
+
+        return materiaList;
+        
+        
+     
+    }    
+    
+    
     public void agregarMateria(Materia materia){
         
         String sql = "INSERT INTO materia (nombreMateria, anio, estado) VALUES (?,?,?);";
