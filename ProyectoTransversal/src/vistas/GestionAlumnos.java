@@ -55,7 +55,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
-        jbSalir = new javax.swing.JButton();
         jdCalendar = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(0, 51, 51));
@@ -107,19 +106,15 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -147,20 +142,16 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(172, 172, 172)
                                 .addComponent(jLabel6)))
-                        .addGap(0, 25, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jbNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbSalir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1)))
+                        .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jbNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbGuardar)
+                .addGap(50, 50, 50)
+                .addComponent(jbEliminar)
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,13 +181,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jdCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)
                     .addComponent(jbEliminar)
-                    .addComponent(jbGuardar)
-                    .addComponent(jbSalir))
-                .addGap(29, 29, 29))
+                    .addComponent(jbGuardar))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -212,7 +202,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             } else {
                 jbGuardar.setEnabled(true);
                 jbEliminar.setEnabled(true);
-                
+                jbNuevo.setEnabled(false);
                 jtApellido.setText(a.getApellido());
                 jtNombre.setText(a.getNombre());
                 jrbEstado.setSelected(a.isEstado());
@@ -242,12 +232,11 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 a.setNombre(jtNombre.getText());
                 // Pasamos de Date a LocalDate.
                 a.setFechaNac(jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
                 ad.agregarAlumno(a);
-                JOptionPane.showMessageDialog(this, "Alumno agregado");
                 jtApellido.setText("");
                 jtDni.setText("");
                 jtNombre.setText("");
+                jrbEstado.setSelected(false);
                 jdCalendar.setDate(null);
             }
         } catch (NullPointerException | NumberFormatException e) {
@@ -273,11 +262,16 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         try{
             //Ojo restricion numeros
-            ad.modificarAlumno(Integer.parseInt(jtDni.getText()), jtApellido.getText(), jtNombre.getText(), jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jrbEstado.isSelected());
-            jtApellido.setText("");
-            jtDni.setText("");
-            jtNombre.setText("");
-            jdCalendar.setDate(null);
+            if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Por favor agruegue un nombre valido");
+            }else{
+                ad.modificarAlumno(Integer.parseInt(jtDni.getText()), jtApellido.getText(), jtNombre.getText(), jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jrbEstado.isSelected());
+                jtApellido.setText("");
+                jtDni.setText("");
+                jtNombre.setText("");
+                jdCalendar.setDate(null);
+                jrbEstado.setSelected(false);
+            }
         }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");
         }catch (NullPointerException e){
@@ -287,10 +281,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         
 
     }//GEN-LAST:event_jbGuardarActionPerformed
-
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-       this.dispose();
-    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -307,7 +297,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
-    private javax.swing.JButton jbSalir;
     private com.toedter.calendar.JDateChooser jdCalendar;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JTextField jtApellido;
@@ -317,11 +306,13 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     /* Restricion TexField */
     
-// public boolean revisarString(String x){
-//     for(int i = 0 ; i<=x.length()-1 ; i++){
-//         if(x.substring(i,i+1) >= 65 || x.substring(i,i+1)<= 90){
-//             
-//         }
-//     }
-// }
+    public boolean revisarString(String nombre) {
+        String x = nombre.toUpperCase();
+        for (int i = 0; i <= x.length() - 1; i++) {
+            if (x.charAt(i) < 65 || x.charAt(i) > 90) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

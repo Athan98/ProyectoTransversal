@@ -41,8 +41,8 @@ public class Interfaz extends javax.swing.JFrame {
         jmMateria = new javax.swing.JMenu();
         jmFormMateria = new javax.swing.JMenuItem();
         jmAdm = new javax.swing.JMenu();
-        jmInscripciones = new javax.swing.JMenuItem();
         jmNotas = new javax.swing.JMenuItem();
+        jmInscripciones = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jmAlumnosXMat = new javax.swing.JMenuItem();
 
@@ -62,7 +62,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jmAlumno.setText("Alumno");
 
-        jmFormularioAlum.setText("Formulario Alumno");
+        jmFormularioAlum.setText("Gestion de Alumnos");
         jmFormularioAlum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmFormularioAlumActionPerformed(evt);
@@ -74,7 +74,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jmMateria.setText("Materia");
 
-        jmFormMateria.setText("Formulario Materia");
+        jmFormMateria.setText("Gestion de Materias");
         jmFormMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmFormMateriaActionPerformed(evt);
@@ -86,15 +86,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jmAdm.setText("Administracion");
 
-        jmInscripciones.setText("Manejo de Inscripciones");
-        jmInscripciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmInscripcionesActionPerformed(evt);
-            }
-        });
-        jmAdm.add(jmInscripciones);
-
-        jmNotas.setText("Manipulacion de notas");
+        jmNotas.setText("Carga de notas");
         jmNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmNotasActionPerformed(evt);
@@ -102,11 +94,19 @@ public class Interfaz extends javax.swing.JFrame {
         });
         jmAdm.add(jmNotas);
 
+        jmInscripciones.setText("Inscripcion a Materias");
+        jmInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmInscripcionesActionPerformed(evt);
+            }
+        });
+        jmAdm.add(jmInscripciones);
+
         jMenuBar1.add(jmAdm);
 
         jmConsultas.setText("Consultas");
 
-        jmAlumnosXMat.setText("Alumnos por Materia");
+        jmAlumnosXMat.setText("Consulta de Alumnos");
         jmAlumnosXMat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmAlumnosXMatActionPerformed(evt);
