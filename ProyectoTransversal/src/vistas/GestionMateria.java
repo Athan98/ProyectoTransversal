@@ -39,7 +39,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jtCodigo = new javax.swing.JTextField();
         jtNombre = new javax.swing.JTextField();
         jtAño = new javax.swing.JTextField();
         jrEstado = new javax.swing.JRadioButton();
@@ -48,6 +47,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jtCodigo = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -64,8 +64,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jLabel4.setText("Año:");
 
         jLabel5.setText("Estado:");
-
-        jtCodigo.setEditable(false);
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +93,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
             }
         });
 
+        jtCodigo.setText("- ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,14 +121,17 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                                .addComponent(jtAño))
-                                            .addComponent(jrEstado))
-                                        .addGap(0, 152, Short.MAX_VALUE))
-                                    .addComponent(jtNombre))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbBuscar))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jtAño, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jrEstado))
+                                                .addGap(0, 152, Short.MAX_VALUE))
+                                            .addComponent(jtNombre))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jbBuscar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jtCodigo)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addComponent(jbNuevo)
@@ -152,11 +155,11 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar))
-                .addGap(43, 43, 43)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(48, 48, 48)
+                    .addComponent(jLabel2)
+                    .addComponent(jtCodigo))
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -283,7 +286,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbNuevo;
     private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtAño;
-    private javax.swing.JTextField jtCodigo;
+    private javax.swing.JLabel jtCodigo;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 }

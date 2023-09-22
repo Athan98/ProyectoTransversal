@@ -161,14 +161,9 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
                     inscripcion.getId_materia().getId_materia(),
                     inscripcion.getId_materia().getNombre(),
                     inscripcion.getNota()
-
                 });
-
             }
-
         }
-
-
     }//GEN-LAST:event_jcbAlumnosItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -180,7 +175,6 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
                     modelo.getValueAt(i, 1).toString());
         }
         JOptionPane.showMessageDialog(this, "La nota ha sido cargada con exito");
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -208,9 +202,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         jcbAlumnos.addItem(seleccionar);
 
         for (int i = 0; i < a.size(); i++) {
-
             jcbAlumnos.addItem(a.get(i));
-
         }
     }
 
