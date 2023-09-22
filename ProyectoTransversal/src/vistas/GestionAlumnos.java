@@ -218,15 +218,15 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        Alumno a = new Alumno();
+        Alumno a = new Alumno();        
         
-        
-        try {
+        try {            
             if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate()==null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now())))  {
                 JOptionPane.showMessageDialog(this, "Por favor complete todos los campos");
-            } else {
-                a.setEstado(jrbEstado.isSelected());    //Ojo restriccion numeros.
-             
+            }else if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Por favor agruegue un nombre valido");
+            }else {
+                a.setEstado(jrbEstado.isSelected());    //Ojo restriccion numeros.             
                 a.setApellido(jtApellido.getText());
                 a.setDni(Integer.parseInt(jtDni.getText()));
                 a.setNombre(jtNombre.getText());
@@ -262,7 +262,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         try{
             //Ojo restricion numeros
-            if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
+            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate()==null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now())))  {
+                JOptionPane.showMessageDialog(this, "Por favor complete todos los campos");
+            }else if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
                 JOptionPane.showMessageDialog(this, "Por favor agruegue un nombre valido");
             }else{
                 ad.modificarAlumno(Integer.parseInt(jtDni.getText()), jtApellido.getText(), jtNombre.getText(), jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jrbEstado.isSelected());
@@ -309,8 +311,10 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     public boolean revisarString(String nombre) {
         String x = nombre.toUpperCase();
         for (int i = 0; i <= x.length() - 1; i++) {
-            if (x.charAt(i) < 65 || x.charAt(i) > 90) {
+            if (x.charAt(i) < 65 || x.charAt(i) > 90) { //x.charAt(i) != 32
                 return false;
+//            }else if(x.substring(i,i+1).equals(" ")){
+//                return false;
             }
         }
         return true;
