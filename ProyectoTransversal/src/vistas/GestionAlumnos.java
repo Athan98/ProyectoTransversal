@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Stefano
@@ -26,7 +25,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         initComponents();
         jbGuardar.setEnabled(false);
         jbEliminar.setEnabled(false);
-        
+
     }
 
     /**
@@ -218,14 +217,14 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        Alumno a = new Alumno();        
-        
-        try {            
-            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate()==null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now())))  {
+        Alumno a = new Alumno();
+
+        try {
+            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate() == null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now()))) {
                 JOptionPane.showMessageDialog(this, "Por favor complete todos los campos");
-            }else if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
+            } else if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
                 JOptionPane.showMessageDialog(this, "Por favor agruegue un nombre valido");
-            }else {
+            } else {
                 a.setEstado(jrbEstado.isSelected());    //Ojo restriccion numeros.             
                 a.setApellido(jtApellido.getText());
                 a.setDni(Integer.parseInt(jtDni.getText()));
@@ -248,7 +247,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        
+
         try {
             ad.eliminarAlumno(Integer.parseInt(jtDni.getText()));
         } catch (NumberFormatException e) {
@@ -260,13 +259,13 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
 
-        try{
+        try {
             //Ojo restricion numeros
-            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate()==null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now())))  {
+            if (jtApellido.getText().isEmpty() || jtDni.getText().isEmpty() || jtNombre.getText().isEmpty() || jdCalendar.getDate() == null || jdCalendar.getDate().after(Date.valueOf(LocalDate.now()))) {
                 JOptionPane.showMessageDialog(this, "Por favor complete todos los campos");
-            }else if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
+            } else if (revisarString(jtApellido.getText()) == false || revisarString(jtNombre.getText()) == false) {
                 JOptionPane.showMessageDialog(this, "Por favor agruegue un nombre valido");
-            }else{
+            } else {
                 ad.modificarAlumno(Integer.parseInt(jtDni.getText()), jtApellido.getText(), jtNombre.getText(), jdCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jrbEstado.isSelected());
                 jtApellido.setText("");
                 jtDni.setText("");
@@ -274,13 +273,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 jdCalendar.setDate(null);
                 jrbEstado.setSelected(false);
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor complete los campos correctamente");
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Por favor elija una fecha de nacimiento valida.");
         }
 
-        
 
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -307,16 +305,18 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     /* Restricion TexField */
-    
     public boolean revisarString(String nombre) {
+        boolean num = true;
         String x = nombre.toUpperCase();
+
         for (int i = 0; i <= x.length() - 1; i++) {
-            if (x.charAt(i) < 65 || x.charAt(i) > 90) { //x.charAt(i) != 32
-                return false;
-//            }else if(x.substring(i,i+1).equals(" ")){
-//                return false;
+            if(x.charAt(i) >= 48 && x.charAt(i) <= 57){
+                num = false;
             }
+//            if (x.charAt(i) != 32 && (x.charAt(i) < 65 || x.charAt(i) > 90)) { //x.charAt(i) != 32                
+//                num = false;
+//            }
         }
-        return true;
+        return num;
     }
 }
