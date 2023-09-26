@@ -155,14 +155,12 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
 
         List<Inscripcion> ins = id.listarInscripcionesPorAlumno(a.getDni());
 
-        for (Inscripcion inscripcion : ins) {
-            if (inscripcion.getId_alumno().getApellido().equals(a.getApellido())) {
+        for (Inscripcion inscripcion : ins) {            
                 modelo.addRow(new Object[]{
                     inscripcion.getId_materia().getId_materia(),
                     inscripcion.getId_materia().getNombre(),
                     inscripcion.getNota()
-                });
-            }
+                });            
         }
     }//GEN-LAST:event_jcbAlumnosItemStateChanged
 
