@@ -250,6 +250,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         try {
             ad.eliminarAlumno(Integer.parseInt(jtDni.getText()));
+            JOptionPane.showMessageDialog(this, "El alumno ha sido eliminado");
+            jtApellido.setText("");
+            jtDni.setText("");
+            jtNombre.setText("");
+            jrbEstado.setSelected(false);
+            jdCalendar.setDate(null);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un DNI");
         }
@@ -310,7 +316,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         String x = nombre.toUpperCase();
 
         for (int i = 0; i <= x.length() - 1; i++) {
-            if(x.charAt(i) >= 48 && x.charAt(i) <= 57){
+            if (x.charAt(i) >= 48 && x.charAt(i) <= 57) {
                 num = false;
             }
 //            if (x.charAt(i) != 32 && (x.charAt(i) < 65 || x.charAt(i) > 90)) { //x.charAt(i) != 32                
