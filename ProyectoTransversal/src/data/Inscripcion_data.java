@@ -1,4 +1,3 @@
-
 package data;
 
 import entidades.Alumno;
@@ -22,9 +21,8 @@ public class Inscripcion_data {
 
     public void inscribirAlumno(Alumno alumno, Materia materia) {
         Inscripcion inscripcion = new Inscripcion();
-        
+
         String sql = "INSERT INTO inscripcion(nota,id_alumno,id_materia) VALUES (?,?,?)";
-        
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -166,7 +164,7 @@ public class Inscripcion_data {
                 materia.setId_materia(rs.getInt("id_materia"));
                 materia.setNombre(rs.getString("nombreMateria"));
                 materia.setAnio(rs.getInt("anio"));
-                materia.setEstado(rs.getBoolean("estado")); 
+                materia.setEstado(rs.getBoolean("estado"));
                 materiasList.add(materia);
             }
             ps.close();
